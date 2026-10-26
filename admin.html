@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Command Terminal | Harshith Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <style>
+    /* Admin specific layout styling */
+    .admin-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at 50% 0%, rgba(0, 245, 212, 0.08) 0%, transparent 60%), #040711;
+    }
+    .login-container {
+      max-width: 440px;
+      margin: 8vh auto 4rem;
+      width: 90%;
+      background: rgba(10, 16, 31, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 245, 212, 0.1);
+      position: relative;
+    }
+    .hud-header {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-panel-container {
+      display: none;
+      max-width: 1000px;
+      margin: 2rem auto 5rem;
+      width: 92%;
+    }
+    .admin-panel-container.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 850px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    .admin-avatar-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-cyan);
+      object-fit: cover;
+      margin: 1rem auto;
+      display: block;
+      background: #0f172a;
+    }
+    .badge-secure {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="admin-wrapper">
+
+  <!-- HUD Top Bar -->
+  <header class="navbar" style="padding: 0.8rem 0;">
+    <div class="container nav-container">
+      <div class="brand-logo">
+        <div class="brand-icon" style="background: linear-gradient(135deg, #00f5d4 0%, #3b82f6 100%);">⚡</div>
+        <div class="brand-meta">
+          <span class="title">PORTFOLIO OS // ADMIN</span>
+          <span class="sub" style="color: var(--accent-cyan);">BGSCET • SECURE TERMINAL</span>
+        </div>
+      </div>
+      <div>
+        <a href="index.html" class="btn btn-secondary" style="padding: 0.45rem 1rem; font-size: 0.85rem;">
+          &larr; View Live Site
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Form Screen (Visible when unauthenticated) -->
+  <div id="loginScreen" class="login-container">
+    <div class="hud-header">
+      <span>[RESTRICTED ACCESS]</span>
+      <span class="badge-secure">SHA-256 ENCRYPTED</span>
+    </div>
+    
+    <h2 style="font-size: 1.6rem; margin-bottom: 0.5rem; color: #ffffff;">Admin Verification</h2>
+    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.75rem;">
+      Enter your verified credentials to access the portfolio configuration command center.
+    </p>
+
+    <div id="loginAlert" style="display: none; padding: 0.75rem; border-radius: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; font-size: 0.85rem; margin-bottom: 1.25rem;"></div>
+
+    <form id="adminLoginForm">
+      <div class="form-group" style="margin-bottom: 1.25rem;">
+        <label for="adminUsername" class="form-label" style="font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.05em;">ADMIN IDENTIFIER</label>
+        <input type="text" id="adminUsername" class="form-input" placeholder="Enter username" autocomplete="username" required>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.75rem;">
+        <label for="adminPassword" class="form-label" style="font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.05em;">SECURITY KEY / PASSWORD</label>
+        <div style="position: relative;">
+          <input type="password" id="adminPassword" class="form-input" placeholder="Enter password" autocomplete="current-password" required style="padding-right: 2.75rem;">
+          <button type="button" id="togglePasswordBtn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;" title="Show/Hide">
+            👁️
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; font-family: var(--font-mono); letter-spacing: 0.05em;" id="btnLoginSubmit">
+        AUTHENTICATE & ENTER
+      </button>
+    </form>
+
+    <div style="margin-top: 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-subtle); font-family: var(--font-mono);">
+      <span>HASH-VERIFIED CLIENT PROTOCOL • ZERO PUBLIC PLAINTEXT</span>
+    </div>
+  </div>
+
+  <!-- Admin Panel Command Center (Visible when authenticated) -->
+  <main id="adminPanel" class="admin-panel-container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div class="hud-header">
+          <span>[SYSTEM CONTROL ACTIVE]</span>
+          <span class="badge-secure">AUTHENTICATED: HARSHITH V</span>
+        </div>
+        <h1 style="font-size: 2rem; color: #ffffff;">Portfolio Configuration Center</h1>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" id="btnLogout" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+          🔒 Lock & Log Out
+        </button>
+        <a href="index.html" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1.25rem;">
+          🚀 Open Live Site
+        </a>
+      </div>
+    </div>
+
+    <!-- Feedback Message Toast -->
+    <div id="saveToast" class="toast-msg" style="margin-bottom: 1.5rem;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span>Settings successfully updated! All changes are now active across your portfolio.</span>
+    </div>
+
+    <form id="portfolioConfigForm">
+      <div class="admin-grid">
+        
+        <!-- Left Column: Academic & Personal Details -->
+        <div class="card">
+          <div class="hud-header">
+            <span>[01 // ACADEMIC & PROFILE SETTINGS]</span>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="cfgName" class="form-label">Full Name</label>
+            <input type="text" id="cfgName" class="form-input" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="cfgRole" class="form-label">Title / Specialization Headline</label>
+            <input type="text" id="cfgRole" class="form-input" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label for="cfgUsn" class="form-label">USN (University Seat Number)</label>
+              <input type="text" id="cfgUsn" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="cfgSection" class="form-label">Section</label>
+              <input type="text" id="cfgSection" class="form-input" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label for="cfgSem" class="form-label">Semester / Year</label>
+              <input type="text" id="cfgSem" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="cfgBranch" class="form-label">Engineering Branch</label>
+              <input type="text" id="cfgBranch" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="cfgCollege" class="form-label">College Name & Affiliation</label>
+            <input type="text" id="cfgCollege" class="form-input" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label for="cfgEmail" class="form-label">Contact Email Address</label>
+            <input type="email" id="cfgEmail" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cfgBio" class="form-label">Bio / Brief Summary (Home Hero)</label>
+            <textarea id="cfgBio" class="form-textarea" style="min-height: 100px;" required></textarea>
+          </div>
+        </div>
+
+        <!-- Right Column: Profile Picture Management & Quick Actions -->
+        <div>
+          <!-- Photo Management Card -->
+          <div class="card" style="margin-bottom: 1.5rem; text-align: center;">
+            <div class="hud-header" style="justify-content: center;">
+              <span>[02 // PROFILE PICTURE (ADMIN ONLY)]</span>
+            </div>
+
+            <img id="adminPhotoPreview" class="admin-avatar-preview" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23111a33'/><text x='50%' y='55%' text-anchor='middle' fill='%2300f5d4' font-size='32' font-family='sans-serif' dy='.3em'>HV</text></svg>" alt="Profile Preview">
+
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+              Upload or edit your personal profile photo here. Visitors on the public website cannot edit this.
+            </p>
+
+            <input type="file" id="adminPhotoInput" accept="image/*" style="display: none;">
+            
+            <div style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;">
+              <button type="button" id="btnAdminUploadPhoto" class="btn btn-primary" style="font-size: 0.82rem; padding: 0.45rem 1rem;">
+                📸 Upload / Change Photo
+              </button>
+              <button type="button" id="btnAdminRemovePhoto" class="btn btn-secondary" style="font-size: 0.82rem; padding: 0.45rem 0.9rem; color: #fca5a5;">
+                Remove Photo
+              </button>
+            </div>
+          </div>
+
+          <!-- Controls Card -->
+          <div class="card">
+            <div class="hud-header">
+              <span>[03 // ACTIONS]</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 0.85rem; font-size: 1rem;">
+              💾 Save All Settings
+            </button>
+            
+            <button type="button" id="btnResetDefaults" class="btn btn-secondary" style="width: 100%; font-size: 0.85rem;">
+              ↺ Reset to Default Values
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </main>
+
+  <script src="js/settings.js"></script>
+  <script src="js/security.js"></script>
+  <script>
+    /**
+     * Cryptographic Verification Module
+     * Public GitHub source code contains ZERO plain text credentials.
+     * Verified using SHA-256 with specific salt.
+     */
+    const TARGET_AUTH_HASH = "9b6317b0cd348a8665bc0286f628de90d68536a081574f041157d3f356d9386b";
+    const AUTH_SALT = "bgscet_aiml_harshith_2026";
+    const SESSION_TOKEN_KEY = "harshith_portfolio_auth_token_v2";
+
+    // Compute SHA-256 hash in browser
+    async function computeSHA256(str) {
+      const msgBuffer = new TextEncoder().encode(str);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const loginScreen = document.getElementById('loginScreen');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginForm = document.getElementById('adminLoginForm');
+    const loginAlert = document.getElementById('loginAlert');
+    const btnLogout = document.getElementById('btnLogout');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    const passwordInput = document.getElementById('adminPassword');
+
+    // Toggle password visibility
+    togglePasswordBtn.addEventListener('click', () => {
+      const isPwd = passwordInput.type === 'password';
+      passwordInput.type = isPwd ? 'text' : 'password';
+      togglePasswordBtn.textContent = isPwd ? '🔒' : '👁️';
+    });
+
+    // Check if session is already active
+    if (sessionStorage.getItem(SESSION_TOKEN_KEY) === TARGET_AUTH_HASH) {
+      showAdminPanel();
+    }
+
+    // Handle Login submission
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginAlert.style.display = 'none';
+
+      const username = document.getElementById('adminUsername').value.trim();
+      const password = passwordInput.value;
+
+      // Hash input: username:password:salt
+      const combined = `${username}:${password}:${AUTH_SALT}`;
+      const inputHash = await computeSHA256(combined);
+
+      if (inputHash === TARGET_AUTH_HASH) {
+        sessionStorage.setItem(SESSION_TOKEN_KEY, TARGET_AUTH_HASH);
+        showAdminPanel();
+      } else {
+        loginAlert.textContent = 'Authentication Failed: Invalid admin username or password.';
+        loginAlert.style.display = 'block';
+        passwordInput.value = '';
+      }
+    });
+
+    // Logout
+    btnLogout.addEventListener('click', () => {
+      sessionStorage.removeItem(SESSION_TOKEN_KEY);
+      loginScreen.style.display = 'block';
+      adminPanel.classList.remove('active');
+      loginForm.reset();
+    });
+
+    function showAdminPanel() {
+      loginScreen.style.display = 'none';
+      adminPanel.classList.add('active');
+      populateFormValues();
+    }
+
+    // Populate Admin Form with active settings
+    let currentAvatarData = '';
+
+    function populateFormValues() {
+      const s = getPortfolioSettings();
+      document.getElementById('cfgName').value = s.name || '';
+      document.getElementById('cfgRole').value = s.role || '';
+      document.getElementById('cfgUsn').value = s.usn || '';
+      document.getElementById('cfgSection').value = s.section || '';
+      document.getElementById('cfgSem').value = s.sem || '';
+      document.getElementById('cfgBranch').value = s.branch || '';
+      document.getElementById('cfgCollege').value = s.college || '';
+      document.getElementById('cfgEmail').value = s.email || '';
+      document.getElementById('cfgBio').value = s.bio || '';
+      
+      currentAvatarData = s.avatar || '';
+      updateAdminPhotoPreview();
+    }
+
+    function updateAdminPhotoPreview() {
+      const preview = document.getElementById('adminPhotoPreview');
+      if (currentAvatarData) {
+        preview.src = currentAvatarData;
+      } else {
+        preview.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%23111a33'/><text x='50%' y='55%' text-anchor='middle' fill='%2300f5d4' font-size='32' font-family='sans-serif' dy='.3em'>HV</text></svg>";
+      }
+    }
+
+    // Photo Upload inside Admin
+    const photoInput = document.getElementById('adminPhotoInput');
+    document.getElementById('btnAdminUploadPhoto').addEventListener('click', () => photoInput.click());
+
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        currentAvatarData = evt.target.result;
+        updateAdminPhotoPreview();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('btnAdminRemovePhoto').addEventListener('click', () => {
+      currentAvatarData = '';
+      updateAdminPhotoPreview();
+      photoInput.value = '';
+    });
+
+    // Save Form
+    document.getElementById('portfolioConfigForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const newSettings = {
+        name: document.getElementById('cfgName').value.trim(),
+        role: document.getElementById('cfgRole').value.trim(),
+        usn: document.getElementById('cfgUsn').value.trim(),
+        section: document.getElementById('cfgSection').value.trim(),
+        sem: document.getElementById('cfgSem').value.trim(),
+        branch: document.getElementById('cfgBranch').value.trim(),
+        college: document.getElementById('cfgCollege').value.trim(),
+        email: document.getElementById('cfgEmail').value.trim(),
+        bio: document.getElementById('cfgBio').value.trim(),
+        avatar: currentAvatarData
+      };
+
+      savePortfolioSettings(newSettings);
+
+      const toast = document.getElementById('saveToast');
+      toast.classList.add('show');
+      toast.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => toast.classList.remove('show'), 5000);
+    });
+
+    // Reset Defaults
+    document.getElementById('btnResetDefaults').addEventListener('click', () => {
+      if (confirm('Are you sure you want to reset all portfolio settings to the original defaults?')) {
+        resetPortfolioSettings();
+        populateFormValues();
+        alert('Portfolio settings reset to defaults.');
+      }
+    });
+  </script>
+</body>
+</html>

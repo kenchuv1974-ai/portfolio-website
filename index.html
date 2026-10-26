@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harshith | First-Year Engineering Portfolio | BGSCET</title>
-  <meta name="description" content="Personal portfolio of Harshith, 1st Year Engineering Student at BGS College of Engineering and Technology (BGSCET). IDT Activity Portfolio.">
+  <title>Harshith V | AI & Machine Learning Scholar | BGSCET</title>
+  <meta name="description" content="Official Colossal-inspired engineering portfolio of Harshith V, B.E. Scholar in Artificial Intelligence & Machine Learning at BGSCET.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Top Navigation Bar -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" id="brandLogo">
-        <div class="brand-icon">H</div>
+        <div class="brand-icon">HV</div>
         <div class="brand-meta">
-          <span class="title">Harshith</span>
-          <span class="sub">BGSCET • IDT Portfolio</span>
+          <span class="title" data-setting="name">Harshith V</span>
+          <span class="sub" data-setting="branch">AI & MACHINE LEARNING</span>
         </div>
       </a>
 
@@ -31,15 +31,21 @@
         <li><a href="index.html" class="nav-link active">Home</a></li>
         <li><a href="about.html" class="nav-link">About Me</a></li>
         <li><a href="education-skills.html" class="nav-link">Education & Skills</a></li>
-        <li><a href="projects.html" class="nav-link">Projects & Achievements</a></li>
-        <li><a href="contact.html" class="nav-link nav-btn-highlight">Contact</a></li>
+        <li><a href="projects.html" class="nav-link">Projects & Repos</a></li>
+        <li><a href="contact.html" class="nav-link nav-btn-highlight">Connect</a></li>
       </ul>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Colossal Sci-Tech Ambient Background -->
   <main>
     <section class="hero" id="homeHero">
+      
+      <!-- Interactive AI Neural Network Canvas -->
+      <div class="neural-canvas-container">
+        <canvas id="neuralCanvas"></canvas>
+      </div>
+
       <div class="container">
         <div class="hero-grid">
           
@@ -47,23 +53,23 @@
           <div class="hero-content">
             <div class="badge-tag">
               <span class="dot"></span>
-              <span>1st Year B.E. Scholar • AI & Machine Learning • BGSCET</span>
+              <span>[CORE: ARTIFICIAL_INTELLIGENCE // BGSCET]</span>
             </div>
             
             <h1 class="hero-title">
-              Hi, I'm <span class="text-gradient">Harshith V</span><br>
-              AI & Machine Learning Scholar
+              Hi, I'm <span class="text-gradient" data-setting="name">Harshith V</span><br>
+              <span data-setting="role">AI & Machine Learning Scholar</span>
             </h1>
             
             <p class="hero-subtitle">
-              Innovation & Design Thinking (IDT) Scholar
+              Innovation & Design Thinking • Intelligent Systems Engineering
             </p>
             
-            <p class="hero-desc">
-              Welcome to my official multipage portfolio. I am a first-year engineering scholar specializing in 
+            <p class="hero-desc" data-setting="bio">
+              Welcome to my official portfolio. I am a first-year engineering scholar specializing in 
               <strong>Artificial Intelligence & Machine Learning (AI & ML)</strong> at 
               <strong>BGS College of Engineering and Technology (BGSCET)</strong>, exploring intelligent systems, 
-              creative problem-solving, and building impactful engineering solutions.
+              deep learning architectures, and human-centric engineering solutions.
             </p>
 
             <div class="hero-actions">
@@ -78,72 +84,53 @@
             </div>
           </div>
 
-          <!-- Hero Profile Card -->
+          <!-- Hero Profile Card (Public photo editing removed; controlled solely by Admin) -->
           <div class="hero-visual">
             
-            <!-- Floating Badge 1 -->
+            <!-- Colossal HUD Coordinates Badge -->
             <div class="floating-badge badge-top-left">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>VTU Affiliated • BGSCET</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span>VTU // 12.9716° N, 77.5946° E</span>
             </div>
 
             <div class="profile-card-outer">
               <div class="avatar-wrapper" id="profileAvatarWrapper">
                 <div class="avatar-initials">HV</div>
-                <div class="status-indicator" title="Actively Learning & Coding"></div>
-                <!-- Interactive Photo Edit Badge -->
-                <button type="button" class="avatar-edit-badge" id="avatarEditBadge" title="Click to Upload / Change Photo" aria-label="Upload or Edit Photo">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                </button>
+                <div class="status-indicator" title="Model Training & Learning Active"></div>
               </div>
 
-              <!-- Hidden File Input for Image Selection -->
-              <input type="file" id="avatarFileInput" accept="image/*" style="display: none;">
-
-              <!-- Photo Control Buttons -->
-              <div class="photo-control-bar">
-                <button type="button" class="btn-photo" id="uploadPhotoBtn">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                  Add / Edit Photo
-                </button>
-                <button type="button" class="btn-photo btn-photo-danger" id="resetPhotoBtn" style="display: none;">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-                  Reset
-                </button>
-              </div>
-
-              <h2 class="profile-name">Harshith V</h2>
-              <p class="profile-role">B.E. Scholar in AI & Machine Learning</p>
+              <h2 class="profile-name" data-setting="name">Harshith V</h2>
+              <p class="profile-role" data-setting="role">AI & Machine Learning Scholar</p>
 
               <!-- Academic Metadata -->
               <div class="student-meta-list">
                 <div class="student-meta-item">
                   <span class="meta-label">College:</span>
-                  <span class="meta-val">BGSCET Bengaluru</span>
+                  <span class="meta-val" data-setting="college">BGSCET Bengaluru</span>
                 </div>
                 <div class="student-meta-item">
                   <span class="meta-label">USN:</span>
-                  <span class="meta-val">1BG24CS001</span>
+                  <span class="meta-val" data-setting="usn">1BG24CS001</span>
                 </div>
                 <div class="student-meta-item">
                   <span class="meta-label">Section:</span>
-                  <span class="meta-val">A Section</span>
+                  <span class="meta-val" data-setting="section">A Section</span>
+                </div>
+                <div class="student-meta-item">
+                  <span class="meta-label">Semester:</span>
+                  <span class="meta-val" data-setting="sem">1st Year / Sem 2</span>
                 </div>
                 <div class="student-meta-item">
                   <span class="meta-label">Branch:</span>
-                  <span class="meta-val">AI & Machine Learning</span>
-                </div>
-                <div class="student-meta-item">
-                  <span class="meta-label">Course:</span>
-                  <span class="meta-val">IDT (Design Thinking)</span>
+                  <span class="meta-val" data-setting="branch">AI & Machine Learning</span>
                 </div>
               </div>
             </div>
 
             <!-- Floating Badge 2 -->
             <div class="floating-badge badge-bottom-right">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
-              <span>Code & Innovation</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              <span>[MODEL: NEURAL_CORE]</span>
             </div>
 
           </div>
@@ -152,25 +139,43 @@
       </div>
     </section>
 
-    <!-- Highlights & Quick Overview Section -->
+    <!-- AI/ML Ambient Visual Media Banner -->
+    <section class="section" style="padding: 2rem 0 3.5rem;">
+      <div class="container">
+        <div class="video-hud-overlay" style="max-height: 380px;">
+          <div class="hud-ticker-tag">
+            <span class="dot" style="background:#00f5d4; width:6px; height:6px; border-radius:50%;"></span>
+            <span>STREAM // AI NEURAL NETWORK DATA MATRIX</span>
+          </div>
+
+          <!-- Ambient High-Definition AI Neural Network Video Loop -->
+          <video autoplay loop muted playsinline poster="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'><rect width='100%' height='100%' fill='%23050914'/><text x='50%' y='50%' fill='%2300f5d4' font-size='24' font-family='monospace' text-anchor='middle'>[INITIALIZING NEURAL STREAM]</text></svg>">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-with-graphs-31912-large.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-glowing-lines-in-a-dark-background-31742-large.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Highlights & Overview Section -->
     <section class="section" id="highlights">
       <div class="container">
         <div class="section-title-wrap">
-          <span class="section-tag">Portfolio Highlights</span>
-          <h2 class="section-title">What You'll Find Here</h2>
+          <span class="section-tag">[SYSTEM MODULES]</span>
+          <h2 class="section-title">Portfolio Architecture</h2>
         </div>
 
         <div class="grid-3">
           <!-- Card 1 -->
           <div class="card">
             <div class="card-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
             </div>
             <h3 class="card-title">About Me</h3>
             <p class="card-text">
-              Discover my background, engineering interests, hobbies, career objectives, and what motivates me as a budding technologist.
+              Discover my background, engineering values, neural research interests, and long-term career trajectory in artificial intelligence.
             </p>
-            <div style="margin-top: 1.25rem;">
+            <div style="margin-top: 1.5rem;">
               <a href="about.html" class="link-btn">Read My Story &rarr;</a>
             </div>
           </div>
@@ -178,13 +183,13 @@
           <!-- Card 2 -->
           <div class="card">
             <div class="card-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
             </div>
             <h3 class="card-title">Education & Skills</h3>
             <p class="card-text">
-              Review my schooling, academic milestones, programming proficiencies in C and Web Technologies, and essential core soft skills.
+              Review my academic foundation at BGSCET, programming mastery in C, Python, and Web architectures, and analytical problem-solving competencies.
             </p>
-            <div style="margin-top: 1.25rem;">
+            <div style="margin-top: 1.5rem;">
               <a href="education-skills.html" class="link-btn">View Qualifications &rarr;</a>
             </div>
           </div>
@@ -192,32 +197,32 @@
           <!-- Card 3 -->
           <div class="card">
             <div class="card-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
-            <h3 class="card-title">Projects & Software</h3>
+            <h3 class="card-title">Projects & Repositories</h3>
             <p class="card-text">
-              Explore my published software including the ClassPilot Android app, Neon Cyberpunk Tic-Tac-Toe, and this responsive portfolio website.
+              Inspect real-world code implementations including the ClassPilot Android system, Neon Cyberpunk strategy game, and GitHub repositories.
             </p>
-            <div style="margin-top: 1.25rem;">
-              <a href="projects.html" class="link-btn">View Showcase &rarr;</a>
+            <div style="margin-top: 1.5rem;">
+              <a href="projects.html" class="link-btn">Explore Projects &rarr;</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Design Thinking Quote Banner -->
+    <!-- Colossal Monolith Philosophy Banner -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
-        <div class="card" style="background: linear-gradient(135deg, rgba(17,26,51,0.9), rgba(30,41,75,0.7)); border-color: rgba(59,130,246,0.3); text-align: center; padding: 3rem 2rem;">
-          <span class="section-tag">Innovation & Design Thinking (IDT)</span>
-          <h2 style="font-size: 1.8rem; margin: 0.5rem 0 1rem; color: #ffffff;">
+        <div class="card" style="background: linear-gradient(135deg, rgba(7, 13, 30, 0.95), rgba(3, 7, 18, 0.98)); border-color: rgba(0, 245, 212, 0.35); text-align: center; padding: 3.5rem 2rem;">
+          <span class="section-tag">[PARADIGM // DESIGN THINKING]</span>
+          <h2 style="font-size: 2rem; margin: 0.5rem 0 1rem; color: #ffffff;">
             "Empathize • Define • Ideate • Prototype • Test"
           </h2>
-          <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 1.5rem;">
-            This portfolio demonstrates my application of human-centric design thinking, structured layout planning, and modern responsive engineering standards taught at BGS College of Engineering and Technology.
+          <p style="color: var(--text-muted); max-width: 720px; margin: 0 auto 1.75rem;">
+            Engineering intelligent systems is not merely computing formulas; it is designing human-centric technology that operates ethically, intuitively, and reliably for real users.
           </p>
-          <a href="contact.html" class="btn btn-primary" id="btnGetInTouch">Get in Touch with Me</a>
+          <a href="contact.html" class="btn btn-primary" id="btnGetInTouch">Initiate Contact</a>
         </div>
       </div>
     </section>
@@ -228,38 +233,43 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Harshith V • BGSCET IDT Portfolio</h4>
+          <h4><span data-setting="name">Harshith V</span> • BGSCET IDT Portfolio</h4>
           <p>
-            Created for the Innovation and Design Thinking (IDT) Activity at BGS College of Engineering and Technology, Bengaluru.
+            Innovation and Design Thinking (IDT) Academic Portfolio at BGS College of Engineering and Technology, Bengaluru.
           </p>
-          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent-cyan);">
-            USN: 1BG24CS001 | Section: A | 1st Year B.E. (AI & ML)
+          <p style="margin-top: 0.6rem; font-size: 0.85rem; color: var(--accent-cyan); font-family: var(--font-mono);">
+            USN: <span data-setting="usn">1BG24CS001</span> | Section: <span data-setting="section">A</span> | <span data-setting="sem">1st Year / Sem 2</span>
           </p>
         </div>
         <div class="footer-col">
-          <h4>Quick Navigation</h4>
+          <h4>Navigation</h4>
           <ul class="footer-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Me</a></li>
             <li><a href="education-skills.html">Education & Skills</a></li>
-            <li><a href="projects.html">Projects & Achievements</a></li>
+            <li><a href="projects.html">Projects & Repositories</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Institutional Affiliation</h4>
-          <p>BGS College of Engineering and Technology (BGSCET)</p>
-          <p style="font-size: 0.85rem; margin-top: 0.4rem;">Affiliated to VTU, Belagavi & Approved by AICTE, New Delhi.</p>
+          <p data-setting="college">BGS College of Engineering and Technology (BGSCET)</p>
+          <p style="font-size: 0.82rem; margin-top: 0.4rem; color: var(--text-subtle);">Affiliated to VTU, Belagavi & Approved by AICTE, New Delhi.</p>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; 2026 Harshith. All rights reserved. IDT Academic Portfolio.</span>
-        <span>Built with HTML5, Vanilla CSS3 & Modern JavaScript</span>
+        <span>&copy; 2026 <span data-setting="name">Harshith V</span>. All rights reserved.</span>
+        <span>
+          <a href="admin.html" class="admin-secret-link" title="Press Ctrl+Shift+A anytime">[SYS // ADMIN ACCESS]</a>
+        </span>
       </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
+  <script src="js/settings.js"></script>
+  <script src="js/security.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

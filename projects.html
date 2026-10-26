@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects & Achievements | Harshith - BGSCET Portfolio</title>
-  <meta name="description" content="Projects, IDT case studies, certifications, and academic achievements of Harshith at BGSCET.">
+  <title>Projects & Repositories | Harshith V - BGSCET Portfolio</title>
+  <meta name="description" content="Projects, Android systems, and GitHub repositories developed by Harshith V at BGSCET.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
 <body>
 
@@ -14,10 +14,10 @@
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" id="brandLogo">
-        <div class="brand-icon">H</div>
+        <div class="brand-icon">HV</div>
         <div class="brand-meta">
-          <span class="title">Harshith</span>
-          <span class="sub">BGSCET • IDT Portfolio</span>
+          <span class="title" data-setting="name">Harshith V</span>
+          <span class="sub" data-setting="branch">AI & MACHINE LEARNING</span>
         </div>
       </a>
 
@@ -31,8 +31,8 @@
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="about.html" class="nav-link">About Me</a></li>
         <li><a href="education-skills.html" class="nav-link">Education & Skills</a></li>
-        <li><a href="projects.html" class="nav-link active">Projects & Achievements</a></li>
-        <li><a href="contact.html" class="nav-link nav-btn-highlight">Contact</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects & Repos</a></li>
+        <li><a href="contact.html" class="nav-link nav-btn-highlight">Connect</a></li>
       </ul>
     </div>
   </header>
@@ -40,10 +40,10 @@
   <!-- Page Header -->
   <section class="page-header">
     <div class="container">
-      <span class="section-tag">Showcase & Portfolio</span>
-      <h1>Projects & Achievements</h1>
+      <span class="section-tag">[CODEBASE // ARTIFACT REPOSITORY]</span>
+      <h1>Projects & Code</h1>
       <p>
-        A curated collection of my Innovation & Design Thinking prototypes, programming projects, technical certifications, and collegiate milestones.
+        A curated showcase of software implementations, Android mobile utilities, and web repositories built with precision.
       </p>
     </div>
   </section>
@@ -126,7 +126,7 @@
             </div>
             <h3 class="card-title">Multipage Personal Portfolio Website</h3>
             <p class="card-text">
-              A 5-page responsive portfolio developed with vanilla CSS, semantic HTML5, and interactive JavaScript. Includes client-side photo upload and local storage persistence. Hosted publicly on GitHub Pages.
+              A responsive 5-page portfolio engineered with vanilla CSS, semantic HTML5, and interactive JavaScript. Includes client-side administrative controls, inspect lockdown, and hosted on GitHub Pages.
             </p>
           </div>
           <div class="project-actions">
@@ -154,38 +154,42 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Harshith V • BGSCET IDT Portfolio</h4>
+          <h4><span data-setting="name">Harshith V</span> • BGSCET IDT Portfolio</h4>
           <p>
-            Created for the Innovation and Design Thinking (IDT) Activity at BGS College of Engineering and Technology, Bengaluru.
+            Innovation and Design Thinking (IDT) Academic Portfolio at BGS College of Engineering and Technology, Bengaluru.
           </p>
-          <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent-cyan);">
-            USN: 1BG24CS001 | Section: A | 1st Year B.E. (AI & ML)
+          <p style="margin-top: 0.6rem; font-size: 0.85rem; color: var(--accent-cyan); font-family: var(--font-mono);">
+            USN: <span data-setting="usn">1BG24CS001</span> | Section: <span data-setting="section">A</span> | <span data-setting="sem">1st Year / Sem 2</span>
           </p>
         </div>
         <div class="footer-col">
-          <h4>Quick Navigation</h4>
+          <h4>Navigation</h4>
           <ul class="footer-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Me</a></li>
             <li><a href="education-skills.html">Education & Skills</a></li>
-            <li><a href="projects.html">Projects & Achievements</a></li>
+            <li><a href="projects.html">Projects & Repos</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Institutional Affiliation</h4>
-          <p>BGS College of Engineering and Technology (BGSCET)</p>
-          <p style="font-size: 0.85rem; margin-top: 0.4rem;">Affiliated to VTU, Belagavi & Approved by AICTE, New Delhi.</p>
+          <p data-setting="college">BGS College of Engineering and Technology (BGSCET)</p>
+          <p style="font-size: 0.82rem; margin-top: 0.4rem; color: var(--text-subtle);">Affiliated to VTU, Belagavi & Approved by AICTE, New Delhi.</p>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; 2026 Harshith. All rights reserved. IDT Academic Portfolio.</span>
-        <span>Built with HTML5, Vanilla CSS3 & Modern JavaScript</span>
+        <span>&copy; 2026 <span data-setting="name">Harshith V</span>. All rights reserved.</span>
+        <span>
+          <a href="admin.html" class="admin-secret-link" title="Press Ctrl+Shift+A anytime">[SYS // ADMIN ACCESS]</a>
+        </span>
       </div>
     </div>
   </footer>
 
+  <script src="js/settings.js"></script>
+  <script src="js/security.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
