@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact & Communication | Harshith V - BGSCET Portfolio</title>
   <meta name="description" content="Get in touch with Harshith V, AI & Machine Learning Scholar at BGSCET. Direct verified email and contact portal.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=3.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar with Admin Login Toggle -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
       <a href="index.html" class="brand-logo" id="brandLogo">
@@ -27,13 +30,20 @@
         </svg>
       </button>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link">About Me</a></li>
-        <li><a href="education-skills.html" class="nav-link">Education & Skills</a></li>
-        <li><a href="projects.html" class="nav-link">Projects & Repos</a></li>
-        <li><a href="contact.html" class="nav-link nav-btn-highlight active">Connect</a></li>
-      </ul>
+      <div class="nav-menu-wrap">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Me</a></li>
+          <li><a href="education-skills.html" class="nav-link">Education & Skills</a></li>
+          <li><a href="projects.html" class="nav-link">Projects & Repos</a></li>
+          <li><a href="contact.html" class="nav-link active">Connect</a></li>
+        </ul>
+
+        <a href="admin.html" class="nav-admin-btn" id="navAdminToggleBtn" title="Admin Portal (Ctrl + Shift + A)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Admin Login
+        </a>
+      </div>
     </div>
   </header>
 
@@ -71,7 +81,7 @@
               <div class="contact-item-content">
                 <h4>Official & Personal Email</h4>
                 <p>
-                  <a href="mailto:harshithv1512@gmail.com" data-setting="email" style="color: var(--accent-cyan); font-weight: 600; font-family: var(--font-mono);">
+                  <a href="mailto:harshithv1512@gmail.com" data-setting="email" style="color: var(--purple-light); font-weight: 600; font-family: var(--font-mono);">
                     harshithv1512@gmail.com
                   </a>
                 </p>
@@ -113,18 +123,18 @@
 
           </div>
 
-          <!-- Note about Circular Guidelines -->
-          <div class="card" style="border-left: 2px solid var(--accent-cyan);">
+          <!-- Circular Privacy Note -->
+          <div class="card" style="border-left: 3px solid var(--purple-neon);">
             <h4 style="font-size: 1rem; color: #ffffff; margin-bottom: 0.5rem;">
               Privacy & Institutional Compliance
             </h4>
             <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
-              Sensitive personal information (personal phone numbers, private residential coordinates) is withheld in full compliance with VTU/BGSCET circular protocols.
+              Sensitive personal information (personal phone numbers, private residential details) is withheld in full compliance with VTU/BGSCET circular protocols.
             </p>
           </div>
         </div>
 
-        <!-- Right: Professional Contact Form -->
+        <!-- Right: Contact Form -->
         <div>
           <div class="contact-card">
             <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #ffffff;">
@@ -174,7 +184,7 @@
     </div>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer with Visible Admin Access -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -183,7 +193,7 @@
           <p>
             Innovation and Design Thinking (IDT) Academic Portfolio at BGS College of Engineering and Technology, Bengaluru.
           </p>
-          <p style="margin-top: 0.6rem; font-size: 0.85rem; color: var(--accent-cyan); font-family: var(--font-mono);">
+          <p style="margin-top: 0.6rem; font-size: 0.88rem; color: var(--purple-neon); font-family: var(--font-mono);">
             USN: <span data-setting="usn">1BG24CS001</span> | Section: <span data-setting="section">A</span> | <span data-setting="sem">1st Year / Sem 2</span>
           </p>
         </div>
@@ -200,21 +210,28 @@
         <div class="footer-col">
           <h4>Institutional Affiliation</h4>
           <p data-setting="college">BGS College of Engineering and Technology (BGSCET)</p>
-          <p style="font-size: 0.82rem; margin-top: 0.4rem; color: var(--text-subtle);">Affiliated to VTU, Belagavi & Approved by AICTE, New Delhi.</p>
+          <p style="font-size: 0.85rem; margin-top: 0.4rem; color: var(--text-subtle);">Affiliated to VTU, Belagavi & Approved by AICTE, New Delhi.</p>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span>&copy; 2026 <span data-setting="name">Harshith V</span>. All rights reserved.</span>
         <span>
-          <a href="admin.html" class="admin-secret-link" title="Press Ctrl+Shift+A anytime">[SYS // ADMIN ACCESS]</a>
+          <a href="admin.html" class="admin-secret-link" title="Press Ctrl+Shift+A anytime">
+            🔒 ADMIN PANEL (Ctrl+Shift+A)
+          </a>
         </span>
       </div>
     </div>
-  </footer>
+  <!-- Permanent Floating Admin Quick-Access Toggle -->
+  <a href="admin.html" class="floating-admin-toggle" id="floatingAdminToggle" title="Open Admin Command Center (Ctrl + Shift + A)">
+    <span class="pulse-dot"></span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <span>Admin Login</span>
+  </a>
 
-  <script src="js/settings.js"></script>
-  <script src="js/security.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/settings.js?v=3.0"></script>
+  <script src="js/security.js?v=3.0"></script>
+  <script src="js/main.js?v=3.0"></script>
 </body>
 </html>

@@ -1,7 +1,11 @@
 /**
- * Colossal Sci-Tech HUD Portfolio - Main Client Script
- * Inspired by Colossal (https://colossal.com)
+ * Colossal Bio-Tech / AI Edition - Main Client Script
  * BGS College of Engineering and Technology (BGSCET)
+ * Features:
+ * - 60FPS AI Neural Synapse Simulation (Electric Purple & Stark White)
+ * - Self-Contained AI Generative Data Stream Visualizer
+ * - Multi-Category Filter with Cross-Fade Transitions
+ * - Mobile Navigation Drawer
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilters();
   initContactForm();
   initSkillBars();
-  initNeuralCanvas();
+  initHeroNeuralEngine();
+  initAIStreamVisualizer();
 });
 
 /**
@@ -31,7 +36,6 @@ function initMobileNavigation() {
       : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>`;
   });
 
-  // Close when clicking outside
   document.addEventListener('click', (e) => {
     if (!toggleBtn.contains(e.target) && !navLinks.contains(e.target) && navLinks.classList.contains('open')) {
       navLinks.classList.remove('open');
@@ -41,7 +45,7 @@ function initMobileNavigation() {
 }
 
 /**
- * 2. Highlight Active Page Navigation Link
+ * 2. Highlight Active Page Link
  */
 function initActiveNavHighlight() {
   const currentPath = window.location.pathname;
@@ -94,7 +98,7 @@ function initProjectFilters() {
         const category = card.getAttribute('data-category') || '';
         if (filterValue === 'all' || category === filterValue || category.includes(filterValue)) {
           card.style.display = 'block';
-          card.style.animation = 'fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+          card.style.animation = 'colossalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
         } else {
           card.style.display = 'none';
         }
@@ -124,7 +128,6 @@ function initContactForm() {
       return;
     }
 
-    // Submit animation simulation
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = `<span>Transmitting message...</span>`;
@@ -134,16 +137,12 @@ function initContactForm() {
       submitBtn.innerHTML = originalText;
       submitBtn.disabled = false;
 
-      // Show toast
       if (toast) {
         toast.classList.add('show');
         toast.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => {
-          toast.classList.remove('show');
-        }, 6000);
+        setTimeout(() => toast.classList.remove('show'), 6000);
       }
 
-      // Reset form
       form.reset();
     }, 850);
   });
@@ -171,17 +170,17 @@ function initSkillBars() {
 }
 
 /**
- * 7. AI/ML Neural Network Dynamic Canvas (Colossal 60FPS Ambient Background)
+ * 7. Colossal Hero Neural Synapse Simulation (Purple & White)
  */
-function initNeuralCanvas() {
+function initHeroNeuralEngine() {
   const canvas = document.getElementById('neuralCanvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
   let width, height;
   let particles = [];
-  const particleCount = window.innerWidth < 768 ? 35 : 65;
-  const maxDistance = 140;
+  const particleCount = window.innerWidth < 768 ? 40 : 75;
+  const maxDistance = 145;
 
   function resize() {
     width = canvas.width = canvas.parentElement.offsetWidth;
@@ -191,13 +190,14 @@ function initNeuralCanvas() {
   window.addEventListener('resize', resize);
   resize();
 
-  class Particle {
+  class NeuralNode {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.75;
-      this.vy = (Math.random() - 0.5) * 0.75;
-      this.radius = Math.random() * 1.8 + 1;
+      this.vx = (Math.random() - 0.5) * 0.85;
+      this.vy = (Math.random() - 0.5) * 0.85;
+      this.radius = Math.random() * 2 + 1;
+      this.color = Math.random() > 0.4 ? '#a855f7' : '#ffffff';
     }
 
     update() {
@@ -211,19 +211,21 @@ function initNeuralCanvas() {
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = '#00f5d4';
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#8b5cf6';
       ctx.fill();
+      ctx.shadowBlur = 0;
     }
   }
 
   for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
+    particles.push(new NeuralNode());
   }
 
-  function animate() {
+  function render() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw neural synapses
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
       particles[i].draw();
@@ -237,16 +239,137 @@ function initNeuralCanvas() {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          const alpha = 1 - dist / maxDistance;
-          ctx.strokeStyle = `rgba(0, 245, 212, ${alpha * 0.22})`;
-          ctx.lineWidth = 0.8;
+          const alpha = (1 - dist / maxDistance) * 0.35;
+          ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+          ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
     }
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(render);
   }
 
-  animate();
+  render();
+}
+
+/**
+ * 8. Self-Contained AI/ML Data Stream Stage (Never Buffers or Errors, 60FPS)
+ */
+function initAIStreamVisualizer() {
+  const canvas = document.getElementById('aiStreamCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let mouseX = -1000, mouseY = -1000;
+
+  function resize() {
+    width = canvas.width = canvas.parentElement.offsetWidth;
+    height = canvas.height = canvas.parentElement.offsetHeight || 380;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    mouseX = -1000;
+    mouseY = -1000;
+  });
+
+  let time = 0;
+
+  function drawAIStream() {
+    time += 0.025;
+    ctx.fillStyle = 'rgba(4, 1, 10, 0.28)';
+    ctx.fillRect(0, 0, width, height);
+
+    // Subtle background matrix grid
+    ctx.strokeStyle = 'rgba(121, 40, 202, 0.08)';
+    ctx.lineWidth = 1;
+    const gridSize = 40;
+    for (let x = 0; x < width; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+    for (let y = 0; y < height; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+
+    // Dynamic horizontal scanline
+    const scanY = (Math.sin(time * 0.7) * 0.5 + 0.5) * height;
+    const scanGrad = ctx.createLinearGradient(0, scanY - 15, 0, scanY + 15);
+    scanGrad.addColorStop(0, 'rgba(168, 85, 247, 0)');
+    scanGrad.addColorStop(0.5, 'rgba(217, 70, 239, 0.18)');
+    scanGrad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+    ctx.fillStyle = scanGrad;
+    ctx.fillRect(0, scanY - 15, width, 30);
+
+    // Multi-frequency neural activation waves in Colossal Purple & White
+    const waves = [
+      { color: 'rgba(121, 40, 202, 0.5)', freq: 0.007, speed: 1.1, amp: 58, yOffset: height * 0.5 },
+      { color: 'rgba(168, 85, 247, 0.75)', freq: 0.011, speed: 1.7, amp: 46, yOffset: height * 0.52 },
+      { color: 'rgba(217, 70, 239, 0.5)', freq: 0.015, speed: 2.3, amp: 34, yOffset: height * 0.48 },
+      { color: 'rgba(255, 255, 255, 0.85)', freq: 0.022, speed: 2.8, amp: 22, yOffset: height * 0.5 }
+    ];
+
+    waves.forEach(w => {
+      ctx.beginPath();
+      ctx.moveTo(0, w.yOffset);
+      for (let x = 0; x < width; x += 3) {
+        let y = Math.sin(x * w.freq + time * w.speed) * Math.cos(x * 0.003 + time) * w.amp + w.yOffset;
+        
+        // Mouse deformation ripple
+        const dx = x - mouseX;
+        const dy = y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          const force = (1 - dist / 120) * 45;
+          y += Math.sin(dist * 0.1 - time * 4) * force;
+        }
+
+        ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = w.color;
+      ctx.lineWidth = 2.2;
+      ctx.shadowBlur = 14;
+      ctx.shadowColor = w.color;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    });
+
+    // Floating AI matrix telemetry indicators
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '600 11px "JetBrains Mono", monospace';
+    const epoch = Math.floor(time * 12) % 500;
+    const loss = (0.0124 + Math.sin(time * 1.5) * 0.0018).toFixed(4);
+    const accuracy = (98.8 + Math.cos(time) * 0.35).toFixed(1);
+
+    ctx.fillText(`[NEURAL STREAM // REAL-TIME SYNAPSE]`, 25, 42);
+    ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
+    ctx.fillText(`EPOCH: ${epoch}/500`, 25, 66);
+    ctx.fillText(`TENSOR_LOSS: ${loss}`, 25, 86);
+    ctx.fillText(`TOP_1_ACC: ${accuracy}%`, 25, 106);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(`SYNAPSE_RATE: 60 FPS`, width - 175, 42);
+    ctx.fillStyle = 'rgba(217, 70, 239, 0.9)';
+    ctx.fillText(`BANDWIDTH: 10.4 GB/s`, width - 175, 66);
+    ctx.fillText(`STATUS: SYNCHRONIZED`, width - 175, 86);
+
+    requestAnimationFrame(drawAIStream);
+  }
+
+  drawAIStream();
 }

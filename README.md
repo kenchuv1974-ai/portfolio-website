@@ -35,13 +35,14 @@
 
 You can manage all your settings and upload your private profile photo from the Admin Panel:
 
-- **How to open:** Click `[SYS // ADMIN ACCESS]` in the footer or press `Ctrl + Shift + A` on any page.
-- **Admin Username:** `Harshith`
-- **Admin Password:** `4777@1512`
-- **Security & GitHub Privacy:** 
-  - Login credentials are **cryptographically hashed using SHA-256 with a unique salt**.
-  - **Zero plain text passwords exist in the source code or on GitHub.** Public viewers browsing your repository only see an irreversible cryptographic hash signature.
-  - Right-click and keyboard inspect shortcuts (`F12`, `Ctrl+Shift+I`, `Ctrl+U`) are locked across the website to prevent casual tampering.
+- **How to open:** 
+  - Click the **"Admin Login"** button in the top navbar.
+  - Or click the floating **"Admin Login"** badge in the bottom-right corner.
+  - Or press `Ctrl + Shift + A` (or `Ctrl + Alt + A`, `Cmd + Shift + A`) on any page.
+- **Admin Verification:**
+  - Credentials are cryptographically validated client-side using salted SHA-256 (`crypto.subtle.digest`).
+  - **Zero plain text passwords exist anywhere in the public repository files.**
+  - Right-click inspection and developer tools shortcuts (`F12`, `Ctrl+Shift+I`, `Ctrl+U`) are disabled for casual visitors.
 
 ---
 

@@ -1,61 +1,64 @@
 /**
- * Security & Anti-Inspection Module
+ * Security, Anti-Inspection & Admin Portal Trigger
  * BGS College of Engineering and Technology (BGSCET)
- * Features:
- * - Locks Right-Click Context Menu
- * - Disables DevTools Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U)
- * - Secret Keyboard Shortcut (Ctrl+Shift+A) to launch Admin Portal
  */
 
-(function initSecurity() {
-  // 1. Lock Right-Click Context Menu
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    displaySecurityHUD('Inspection locked: Right-click context menu is disabled.');
-  });
+(function initSecurityModule() {
+  // 1. Rock-Solid Admin Shortcut: Ctrl + Shift + A (also supports Ctrl + Alt + A, Cmd + Shift + A)
+  function handleAdminKeyShortcut(e) {
+    const isA = (e.key && e.key.toLowerCase() === 'a') || e.code === 'KeyA' || e.keyCode === 65;
+    const hasModifier = (e.ctrlKey || e.metaKey) && (e.shiftKey || e.altKey);
 
-  // 2. Lock Keyboard Inspection Shortcuts
-  document.addEventListener('keydown', (e) => {
-    // Secret Admin Shortcut: Ctrl + Shift + A
-    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+    if (hasModifier && isA) {
       e.preventDefault();
-      window.location.href = 'admin.html';
-      return;
+      e.stopPropagation();
+      showSecurityHUD('Access Granted // Redirecting to Admin Terminal...');
+      setTimeout(() => {
+        window.location.href = 'admin.html';
+      }, 180);
+      return false;
     }
 
-    // F12 DevTools
+    // Lock F12 DevTools
     if (e.key === 'F12' || e.keyCode === 123) {
       e.preventDefault();
-      displaySecurityHUD('Inspection locked: Developer Tools shortcut disabled.');
+      showSecurityHUD('Inspection locked: Developer Tools shortcut disabled.');
       return false;
     }
 
-    // Ctrl + Shift + I (Inspect)
-    // Ctrl + Shift + J (Console)
-    // Ctrl + Shift + C (Element Inspector)
-    if (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
+    // Lock Ctrl + Shift + I, J, C
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
       e.preventDefault();
-      displaySecurityHUD('Inspection locked: Developer shortcuts are restricted.');
+      showSecurityHUD('Inspection locked: Developer shortcuts are restricted.');
       return false;
     }
 
-    // Ctrl + U (View Page Source)
-    if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+    // Lock Ctrl + U (View Page Source)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) {
       e.preventDefault();
-      displaySecurityHUD('Inspection locked: Source view shortcut restricted.');
+      showSecurityHUD('Inspection locked: Source view shortcut restricted.');
       return false;
     }
 
-    // Ctrl + S (Save Page)
-    if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+    // Lock Ctrl + S (Save Page)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'S' || e.key === 's')) {
       e.preventDefault();
-      displaySecurityHUD('Action restricted.');
       return false;
     }
+  }
+
+  window.addEventListener('keydown', handleAdminKeyShortcut, true);
+  document.addEventListener('keydown', handleAdminKeyShortcut, true);
+
+  // 2. Lock Right-Click Context Menu
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    showSecurityHUD('Inspection locked: Right-click context menu is disabled.');
+    return false;
   });
 
-  // 3. Floating HUD Security Indicator Toast
-  function displaySecurityHUD(message) {
+  // 3. Security HUD Notification
+  function showSecurityHUD(message) {
     let hud = document.getElementById('securityHUDToast');
     if (!hud) {
       hud = document.createElement('div');
@@ -73,8 +76,8 @@
     `;
 
     hud.classList.add('active');
-    clearTimeout(window.__securityHudTimeout);
-    window.__securityHudTimeout = setTimeout(() => {
+    clearTimeout(window.__secHudTimeout);
+    window.__secHudTimeout = setTimeout(() => {
       hud.classList.remove('active');
     }, 2800);
   }
