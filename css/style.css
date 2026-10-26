@@ -1433,167 +1433,126 @@ a:hover {
 }
 
 /* ----------------------------------------------------
-   INITIAL INTRO: WHITE BACKGROUND & RUNNING BLACK HORSE
+   CINEMATIC ULTRA-REALISTIC HORSE & JOCKEY LOADING SCREEN
+   Luxury Monochrome: Pure White (#FFFFFF) & Jet-Black Horse/Jockey
    ---------------------------------------------------- */
-.horse-intro-overlay {
+.horse-cinematic-overlay {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   background: #ffffff;
-  z-index: 999999;
+  z-index: 9999999;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   cursor: pointer;
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.75s;
 }
 
-.horse-intro-overlay.fade-out {
-  opacity: 0;
-  visibility: hidden;
+.horse-cinematic-overlay.fade-out {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.horse-cinematic-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
-.horse-track {
-  width: 100vw;
-  position: relative;
-  height: 140px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-.horse-runner {
+/* Dropped Loading Text with Real-Time Physics */
+.horse-dropped-text-container {
   position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 150px;
-  height: 100px;
-  animation: horseGallopAcross 2.2s cubic-bezier(0.2, 0.05, 0.25, 1) forwards;
-}
-
-@keyframes horseGallopAcross {
-  0% {
-    transform: translate(-170px, -50%);
-  }
-  100% {
-    transform: translate(calc(100vw + 170px), -50%);
-  }
-}
-
-.black-horse-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  animation: horseGallopBounce 0.42s infinite ease-in-out alternate;
-  filter: drop-shadow(0 14px 15px rgba(0, 0, 0, 0.22));
-}
-
-@keyframes horseGallopBounce {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(-2deg);
-  }
-  100% {
-    transform: translateY(-2px) rotate(2deg);
-  }
-}
-
-/* Leg gallop stride rotations */
-.leg-front-lead {
-  transform-origin: 85px 44px;
-  animation: gallopFrontLead 0.42s infinite ease-in-out alternate;
-}
-@keyframes gallopFrontLead {
-  0% { transform: rotate(-18deg); }
-  100% { transform: rotate(24deg); }
-}
-
-.leg-front-follow {
-  transform-origin: 81px 45px;
-  animation: gallopFrontFollow 0.42s infinite ease-in-out alternate-reverse;
-}
-@keyframes gallopFrontFollow {
-  0% { transform: rotate(18deg); }
-  100% { transform: rotate(-22deg); }
-}
-
-.leg-back-lead {
-  transform-origin: 45px 46px;
-  animation: gallopBackLead 0.42s infinite ease-in-out alternate;
-}
-@keyframes gallopBackLead {
-  0% { transform: rotate(24deg); }
-  100% { transform: rotate(-20deg); }
-}
-
-.leg-back-follow {
-  transform-origin: 41px 47px;
-  animation: gallopBackFollow 0.42s infinite ease-in-out alternate-reverse;
-}
-@keyframes gallopBackFollow {
-  0% { transform: rotate(-22deg); }
-  100% { transform: rotate(22deg); }
-}
-
-.horse-tail {
-  transform-origin: 36px 34px;
-  animation: horseTailSwish 0.38s infinite ease-in-out alternate;
-}
-@keyframes horseTailSwish {
-  0% { transform: rotate(-8deg); }
-  100% { transform: rotate(12deg); }
-}
-
-/* Minimalist elegant loader info below the horse */
-.horse-loader-meta {
-  margin-top: 2rem;
+  width: 360px;
+  max-width: 90vw;
   text-align: center;
+  pointer-events: none;
+  opacity: 0;
   z-index: 2;
+  transition: opacity 0.25s ease;
 }
 
-.horse-loader-title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: #000000;
-  margin-bottom: 0.85rem;
+.horse-dropped-text-container.active {
+  opacity: 1;
 }
 
-.horse-loader-track {
-  width: 230px;
-  height: 3px;
-  background: #e2e8f0;
-  border-radius: 99px;
-  margin: 0 auto 0.75rem;
-  overflow: hidden;
-}
-
-.horse-loader-fill {
-  height: 100%;
-  width: 0%;
-  background: #000000;
-  border-radius: 99px;
-  animation: horseFillProgress 2.1s cubic-bezier(0.2, 0.05, 0.25, 1) forwards;
-}
-
-@keyframes horseFillProgress {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-.horse-loader-status {
+.horse-dropped-badge {
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #000000;
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border: 1.5px solid rgba(0, 0, 0, 0.85);
+  border-radius: 4px;
+}
+
+.horse-dropped-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #000000;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.horse-dropped-bar {
+  width: 100%;
+  height: 3.5px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  margin: 0 auto 0.65rem;
+  overflow: hidden;
+}
+
+.horse-dropped-fill {
+  height: 100%;
+  width: 25%;
+  background: #000000;
+  border-radius: 99px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.horse-dropped-sub {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
   font-weight: 600;
   color: #64748b;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
+
+.horse-intro-skip-hint {
+  position: absolute;
+  bottom: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #94a3b8;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .horse-dropped-text-container {
+    width: 300px;
+  }
+  .horse-dropped-title {
+    font-size: 0.92rem;
+  }
+}
+
 

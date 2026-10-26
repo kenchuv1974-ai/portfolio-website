@@ -9,7 +9,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHorseIntroLoader();
   initMobileNavigation();
   initActiveNavHighlight();
   initNavbarScroll();
@@ -370,36 +369,4 @@ function initAIStreamVisualizer() {
   }
 
   drawAIStream();
-}
-
-/**
- * 9. Running Black Horse Initial Intro Loader (White Background)
- */
-function initHorseIntroLoader() {
-  const loader = document.getElementById('horseIntroLoader');
-  if (!loader) return;
-
-  function dismissIntro() {
-    if (loader.classList.contains('fade-out')) return;
-    loader.classList.add('fade-out');
-    setTimeout(() => {
-      loader.remove();
-    }, 650);
-  }
-
-  // The black horse gallops across in 2.2s
-  const autoTimer = setTimeout(dismissIntro, 2150);
-
-  // Allow clicking anywhere to skip immediately
-  loader.addEventListener('click', () => {
-    clearTimeout(autoTimer);
-    dismissIntro();
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
-      clearTimeout(autoTimer);
-      dismissIntro();
-    }
-  }, { once: true });
 }
