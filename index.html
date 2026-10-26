@@ -13,6 +13,41 @@
 </head>
 <body>
 
+  <!-- Initial Loading Intro: White Background with Completely Black Galloping Horse -->
+  <div id="horseIntroLoader" class="horse-intro-overlay" title="Click anywhere to skip intro">
+    <div class="horse-track">
+      <div class="horse-runner">
+        <!-- High-Detail Jet-Black Silhouette of Galloping Horse -->
+        <svg class="black-horse-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#000000">
+            <!-- Torso & Muscular Hindquarters -->
+            <path class="horse-body" d="M35 34 C30 26, 42 16, 52 18 C64 20, 78 24, 88 32 C95 38, 92 46, 84 48 C72 50, 52 48, 42 46 C36 44, 32 40, 35 34 Z" />
+            <!-- Arching Neck & Powerful Head -->
+            <path class="horse-neck" d="M78 26 C82 20, 88 12, 94 9 C96 8, 98 10, 97 12 C99 10, 102 7, 104 8 C105 10, 103 14, 106 15 C110 16, 114 20, 110 23 C106 25, 98 23, 94 25 C90 28, 86 33, 84 36 Z" />
+            <!-- Flowing Mane Sweeping Backward -->
+            <path class="horse-mane" d="M82 22 C84 18, 90 14, 86 16 C88 13, 94 10, 91 12 C94 9, 97 8, 93 11 C95 14, 91 17, 85 22 Z" />
+            <!-- High Streaming Tail -->
+            <path class="horse-tail" d="M36 34 C26 30, 12 30, 2 35 C0 36, 1 38, 5 38 C14 38, 24 37, 33 40 Z" />
+            <!-- Front Legs (Galloping Forward Stride) -->
+            <path class="horse-leg leg-front-lead" d="M86 42 C92 48, 102 56, 108 65 C109 67, 107 68, 104 67 C98 60, 90 52, 83 46 Z" />
+            <path class="horse-leg leg-front-follow" d="M82 43 C86 52, 94 62, 98 72 C99 74, 97 74, 95 73 C90 64, 84 55, 80 47 Z" />
+            <!-- Hind Legs (Thrusting Full Power) -->
+            <path class="horse-leg leg-back-lead" d="M44 44 C38 52, 32 60, 22 66 C20 67, 21 69, 23 68 C32 63, 40 55, 46 47 Z" />
+            <path class="horse-leg leg-back-follow" d="M40 45 C32 50, 24 58, 16 64 C14 65, 15 67, 18 66 C26 60, 35 53, 42 46 Z" />
+          </g>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="horse-loader-meta">
+      <div class="horse-loader-title">HARSHITH V // PORTFOLIO</div>
+      <div class="horse-loader-track">
+        <div class="horse-loader-fill"></div>
+      </div>
+      <div class="horse-loader-status">INITIALIZING SYSTEM ARCHITECTURE...</div>
+    </div>
+  </div>
+
   <!-- Top Navigation Bar with Prominent Admin Login Toggle -->
   <header class="navbar" id="navbar">
     <div class="container nav-container">
@@ -106,27 +141,29 @@
               <h2 class="profile-name" data-setting="name">Harshith V</h2>
               <p class="profile-role" data-setting="role">AI & Machine Learning Scholar</p>
 
-              <!-- Academic Metadata -->
+              <!-- Academic Metadata (Expanded for ample space without overlap) -->
               <div class="student-meta-list">
                 <div class="student-meta-item">
-                  <span class="meta-label">College:</span>
-                  <span class="meta-val" data-setting="college">BGSCET Bengaluru</span>
+                  <span class="meta-label">College & Affiliation</span>
+                  <span class="meta-val" data-setting="college">BGS College of Engineering and Technology (BGSCET)</span>
                 </div>
                 <div class="student-meta-item">
-                  <span class="meta-label">USN:</span>
-                  <span class="meta-val" data-setting="usn">1BG24CS001</span>
+                  <span class="meta-label">Engineering Discipline</span>
+                  <span class="meta-val" data-setting="branch">Artificial Intelligence & Machine Learning</span>
+                </div>
+                <div class="student-meta-row-compact">
+                  <div class="student-meta-item">
+                    <span class="meta-label">USN</span>
+                    <span class="meta-val" data-setting="usn">1BG24CS001</span>
+                  </div>
+                  <div class="student-meta-item">
+                    <span class="meta-label">Section</span>
+                    <span class="meta-val" data-setting="section">Section A</span>
+                  </div>
                 </div>
                 <div class="student-meta-item">
-                  <span class="meta-label">Section:</span>
-                  <span class="meta-val" data-setting="section">A Section</span>
-                </div>
-                <div class="student-meta-item">
-                  <span class="meta-label">Semester:</span>
-                  <span class="meta-val" data-setting="sem">1st Year / Sem 2</span>
-                </div>
-                <div class="student-meta-item">
-                  <span class="meta-label">Branch:</span>
-                  <span class="meta-val" data-setting="branch">AI & Machine Learning</span>
+                  <span class="meta-label">Academic Standing</span>
+                  <span class="meta-val" data-setting="sem">1st Year / 2nd Semester</span>
                 </div>
               </div>
             </div>
@@ -136,13 +173,13 @@
       </div>
     </section>
 
-    <!-- AI/ML Video Stream Stage (Bulletproof 60FPS Neural Engine) -->
+    <!-- Interactive Harmonic Spectrum Wave Stage (60FPS Dynamic Visuals) -->
     <section class="section" style="padding: 1.5rem 0 3.5rem;">
       <div class="container">
         <div class="ai-video-stage">
           <div class="video-hud-bar">
             <span class="dot"></span>
-            <span>STREAM // REAL-TIME AI NEURAL MATRIX ACTIVATION (60FPS)</span>
+            <span>STREAM // HARMONIC SPECTRUM WAVE GENERATOR (60 FPS)</span>
           </div>
 
           <!-- Self-Contained 60FPS AI Stream Visualizer -->

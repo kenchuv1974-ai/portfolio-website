@@ -9,6 +9,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initHorseIntroLoader();
   initMobileNavigation();
   initActiveNavHighlight();
   initNavbarScroll();
@@ -349,27 +350,56 @@ function initAIStreamVisualizer() {
       ctx.shadowBlur = 0;
     });
 
-    // Floating AI matrix telemetry indicators
+    // Clean, elegant harmonic spectrum indicators (No confusing technical jargon)
     ctx.fillStyle = '#ffffff';
     ctx.font = '600 11px "JetBrains Mono", monospace';
-    const epoch = Math.floor(time * 12) % 500;
-    const loss = (0.0124 + Math.sin(time * 1.5) * 0.0018).toFixed(4);
-    const accuracy = (98.8 + Math.cos(time) * 0.35).toFixed(1);
 
-    ctx.fillText(`[NEURAL STREAM // REAL-TIME SYNAPSE]`, 25, 42);
-    ctx.fillStyle = 'rgba(168, 85, 247, 0.9)';
-    ctx.fillText(`EPOCH: ${epoch}/500`, 25, 66);
-    ctx.fillText(`TENSOR_LOSS: ${loss}`, 25, 86);
-    ctx.fillText(`TOP_1_ACC: ${accuracy}%`, 25, 106);
+    ctx.fillText(`[HARMONIC SPECTRUM // ACTIVE]`, 25, 42);
+    ctx.fillStyle = 'rgba(168, 85, 247, 0.95)';
+    ctx.fillText(`MOTION: FLUID HARMONIC WAVE`, 25, 66);
+    ctx.fillText(`FREQUENCY: 60 HZ REAL-TIME`, 25, 86);
+    ctx.fillText(`INTERACTION: TOUCH & MOUSE SENSITIVE`, 25, 106);
 
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(`SYNAPSE_RATE: 60 FPS`, width - 175, 42);
-    ctx.fillStyle = 'rgba(217, 70, 239, 0.9)';
-    ctx.fillText(`BANDWIDTH: 10.4 GB/s`, width - 175, 66);
-    ctx.fillText(`STATUS: SYNCHRONIZED`, width - 175, 86);
+    ctx.fillText(`DISPLAY: 60 FPS`, width - 155, 42);
+    ctx.fillStyle = 'rgba(217, 70, 239, 0.95)';
+    ctx.fillText(`MODE: ULTRAVIOLET FLOW`, width - 155, 66);
+    ctx.fillText(`STATUS: SYNCHRONIZED`, width - 155, 86);
 
     requestAnimationFrame(drawAIStream);
   }
 
   drawAIStream();
+}
+
+/**
+ * 9. Running Black Horse Initial Intro Loader (White Background)
+ */
+function initHorseIntroLoader() {
+  const loader = document.getElementById('horseIntroLoader');
+  if (!loader) return;
+
+  function dismissIntro() {
+    if (loader.classList.contains('fade-out')) return;
+    loader.classList.add('fade-out');
+    setTimeout(() => {
+      loader.remove();
+    }, 650);
+  }
+
+  // The black horse gallops across in 2.2s
+  const autoTimer = setTimeout(dismissIntro, 2150);
+
+  // Allow clicking anywhere to skip immediately
+  loader.addEventListener('click', () => {
+    clearTimeout(autoTimer);
+    dismissIntro();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+      clearTimeout(autoTimer);
+      dismissIntro();
+    }
+  }, { once: true });
 }
