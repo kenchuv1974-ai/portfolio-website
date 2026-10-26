@@ -8,11 +8,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4.0">
+  <link rel="stylesheet" href="css/style.css?v=5.0">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-  <script src="js/horse-intro.js?v=4.0"></script>
+  <script src="js/horse-intro.js?v=5.0"></script>
 </head>
 <body>
+
+  <!-- Cinematic Ultra-Realistic Horse & Jockey Intro Overlay -->
+  <div id="horseCinematicOverlay" class="horse-cinematic-overlay" aria-live="polite" role="status">
+    <canvas id="horseCinematicCanvas" class="horse-cinematic-canvas"></canvas>
+    <div id="horseDroppedTextContainer" class="horse-dropped-text-container">
+      <div id="horseDroppedBadge" class="horse-dropped-badge">SYSTEM INITIALIZATION</div>
+      <div id="horseDroppedTitle" class="horse-dropped-title">INITIALIZING SYSTEM ARCHITECTURE...</div>
+      <div class="horse-dropped-bar"><div id="horseDroppedProgress" class="horse-dropped-fill"></div></div>
+      <div id="horseDroppedSub" class="horse-dropped-sub">HARSHITH V • BGSCET AI &amp; ML</div>
+    </div>
+    <div class="horse-intro-skip-hint">PRESS ESC OR CLICK ANYWHERE TO ENTER</div>
+  </div>
 
   <!-- Navigation Bar with Admin Login Toggle -->
   <header class="navbar" id="navbar">
@@ -228,6 +240,6 @@
 
   <script src="js/settings.js?v=3.0"></script>
   <script src="js/security.js?v=3.0"></script>
-  <script src="js/main.js?v=3.0"></script>
+  <script src="js/main.js?v=5.0"></script>
 </body>
 </html>

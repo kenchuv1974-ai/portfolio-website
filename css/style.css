@@ -1469,6 +1469,8 @@ a:hover {
 /* Dropped Loading Text with Real-Time Physics */
 .horse-dropped-text-container {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 360px;
   max-width: 90vw;
   text-align: center;

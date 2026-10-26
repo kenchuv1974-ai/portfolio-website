@@ -48,31 +48,32 @@
   let textContainer, textBadge, textTitle, textFill, textSub;
 
   function createIntroDOM() {
-    // Remove any previous loader
-    const oldLoader = document.getElementById('horseIntroLoader');
-    if (oldLoader) oldLoader.remove();
+    overlay = document.getElementById('horseCinematicOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'horseCinematicOverlay';
+      overlay.className = 'horse-cinematic-overlay';
+      overlay.setAttribute('aria-live', 'polite');
+      overlay.setAttribute('role', 'status');
 
-    overlay = document.createElement('div');
-    overlay.id = 'horseCinematicOverlay';
-    overlay.className = 'horse-cinematic-overlay';
-    overlay.setAttribute('aria-live', 'polite');
-    overlay.setAttribute('role', 'status');
+      overlay.innerHTML = `
+        <canvas id="horseCinematicCanvas" class="horse-cinematic-canvas"></canvas>
+        <div id="horseDroppedTextContainer" class="horse-dropped-text-container">
+          <div id="horseDroppedBadge" class="horse-dropped-badge">SYSTEM INITIALIZATION</div>
+          <div id="horseDroppedTitle" class="horse-dropped-title">INITIALIZING SYSTEM ARCHITECTURE...</div>
+          <div class="horse-dropped-bar"><div id="horseDroppedProgress" class="horse-dropped-fill"></div></div>
+          <div id="horseDroppedSub" class="horse-dropped-sub">HARSHITH V • BGSCET AI & ML</div>
+        </div>
+        <div class="horse-intro-skip-hint">PRESS ESC OR CLICK ANYWHERE TO ENTER</div>
+      `;
 
-    overlay.innerHTML = `
-      <canvas id="horseCinematicCanvas" class="horse-cinematic-canvas"></canvas>
-      <div id="horseDroppedTextContainer" class="horse-dropped-text-container">
-        <div id="horseDroppedBadge" class="horse-dropped-badge">SYSTEM INITIALIZATION</div>
-        <div id="horseDroppedTitle" class="horse-dropped-title">INITIALIZING SYSTEM ARCHITECTURE...</div>
-        <div class="horse-dropped-bar"><div id="horseDroppedProgress" class="horse-dropped-fill"></div></div>
-        <div id="horseDroppedSub" class="horse-dropped-sub">HARSHITH V • BGSCET AI & ML</div>
-      </div>
-      <div class="horse-intro-skip-hint">PRESS ESC OR CLICK ANYWHERE TO ENTER</div>
-    `;
-
-    document.body.prepend(overlay);
+      if (document.body) {
+        document.body.prepend(overlay);
+      }
+    }
 
     canvas = document.getElementById('horseCinematicCanvas');
-    ctx = canvas.getContext('2d');
+    ctx = canvas ? canvas.getContext('2d') : null;
     textContainer = document.getElementById('horseDroppedTextContainer');
     textBadge = document.getElementById('horseDroppedBadge');
     textTitle = document.getElementById('horseDroppedTitle');
@@ -80,7 +81,9 @@
     textSub = document.getElementById('horseDroppedSub');
 
     // Skip on user interaction
-    overlay.addEventListener('click', () => completeIntro(true));
+    if (overlay) {
+      overlay.addEventListener('click', () => completeIntro(true));
+    }
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
         completeIntro(true);
@@ -107,8 +110,8 @@
     groundY = height * 0.62;
   }
 
-  // Horse & Jockey Kinematics State
-  let horseX = -450;
+  // Horse & Jockey Kinematics State (Starts visibly entering on left edge)
+  let horseX = -120;
   let horseSpeed = 0;
   let strideTime = 0;
   let isDropping = false;
@@ -138,8 +141,7 @@
     const progressPct = Math.min(100, Math.round(((currentStepIndex + 1) / LOADING_STEPS.length) * 100));
     textFill.style.width = progressPct + '%';
 
-    // Position container at release point
-    textPhysics.x = Math.max(20, Math.min(width - 340, width / 2 - 160));
+    // Position container at horizontal center with vertical release point
     textPhysics.y = releaseY;
     textPhysics.targetY = groundY + 28;
     textPhysics.vy = 4;
@@ -147,7 +149,8 @@
     textPhysics.settled = false;
     textDropActive = true;
 
-    textContainer.style.left = textPhysics.x + 'px';
+    textContainer.style.left = '50%';
+    textContainer.style.transform = 'translateX(-50%)';
     textContainer.style.top = textPhysics.y + 'px';
     textContainer.style.opacity = '1';
     textContainer.classList.add('active');
@@ -698,17 +701,19 @@
     updateTextPhysics();
 
     // Check if Horse has exited the right screen edge
-    if (horseX > width + 450) {
+    if (horseX > width + 380) {
       passCount++;
       hasDroppedTextThisPass = false;
 
       if (isPageFullyLoaded && passCount >= 1) {
-        // Ready to unveil website
-        completeIntro(false);
+        // Allow settled text to be enjoyed, then smoothly unveil website
+        setTimeout(() => {
+          completeIntro(false);
+        }, 1100);
         return;
       } else {
-        // Loop back for next pass
-        horseX = -450;
+        // Loop back for next pass if still loading
+        horseX = -320;
       }
     }
 
@@ -742,14 +747,7 @@
   function initLifecycle() {
     createIntroDOM();
 
-    // Check reduced motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      completeIntro(true);
-      return;
-    }
-
-    // Start 60FPS loop
+    // Start 60FPS loop immediately
     animationFrameId = requestAnimationFrame(loop);
 
     // Real Window Loading Event
@@ -757,8 +755,8 @@
       onResourceLoaded();
     } else {
       window.addEventListener('load', onResourceLoaded);
-      // Fallback timer to guarantee site reveals even if heavy external font/CDN hangs
-      setTimeout(onResourceLoaded, 3200);
+      // Fallback timer to guarantee site reveals even if external CDN is slow
+      setTimeout(onResourceLoaded, 3500);
     }
   }
 
