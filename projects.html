@@ -53,21 +53,92 @@
     <div class="container">
       <div class="filter-tabs" id="projectFilterTabs">
         <button class="filter-btn active" data-filter="all">All Items</button>
+        <button class="filter-btn" data-filter="github">GitHub Repos</button>
+        <button class="filter-btn" data-filter="ai">AI & Machine Learning</button>
         <button class="filter-btn" data-filter="idt">IDT & Innovation</button>
-        <button class="filter-btn" data-filter="web">Web & Software</button>
-        <button class="filter-btn" data-filter="c-prog">C Programming</button>
-        <button class="filter-btn" data-filter="cert">Certifications & Awards</button>
+        <button class="filter-btn" data-filter="cert">Certifications & Honors</button>
       </div>
 
       <!-- Projects Grid -->
       <div class="grid-3" id="projectsGrid">
 
-        <!-- Project 1: IDT Innovation Activity -->
+        <!-- Project 1: ClassPilot (GitHub Repository) -->
+        <div class="card project-card project-item" data-category="github">
+          <div>
+            <div class="project-img-box">
+              <span class="project-tag">GitHub: kenchuv1974-ai</span>
+              <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                <line x1="12" y1="18" x2="12.01" y2="18"/>
+              </svg>
+            </div>
+            <h3 class="card-title">ClassPilot (Kotlin Android App)</h3>
+            <p class="card-text">
+              An intelligent academic timetable and student classroom scheduling application engineered in Kotlin. Designed to simplify student navigation, lecture reminders, and classroom attendance routines.
+            </p>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/kenchuv1974-ai/ClassPilot" target="_blank" rel="noopener" class="link-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              View on GitHub &rarr;
+            </a>
+            <span class="pill pill-active" style="font-size: 0.75rem;">Kotlin</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Anatomy AI Analyzer (AI Category) -->
+        <div class="card project-card project-item" data-category="ai">
+          <div>
+            <div class="project-img-box">
+              <span class="project-tag">AI / Medical Tech</span>
+              <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="1.5">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Anatomy AI Diagnostic Visualizer</h3>
+            <p class="card-text">
+              A Python-based computational diagnostic tool built for anatomical feature inspection. Utilizes image analysis and visual contouring algorithms to assist in structural exploration and pattern classification.
+            </p>
+          </div>
+          <div class="project-actions">
+            <span class="pill pill-active" style="font-size: 0.75rem;">Python</span>
+            <span class="pill" style="font-size: 0.75rem;">Computer Vision</span>
+            <span class="pill" style="font-size: 0.75rem;">AI Diagnostics</span>
+          </div>
+        </div>
+
+        <!-- Project 3: Neon Cyberpunk Tic-Tac-Toe (GitHub Repository) -->
+        <div class="card project-card project-item" data-category="github">
+          <div>
+            <div class="project-img-box">
+              <span class="project-tag">GitHub: kenchuv1974-ai</span>
+              <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5">
+                <line x1="8" y1="3" x2="8" y2="21"/>
+                <line x1="16" y1="3" x2="16" y2="21"/>
+                <line x1="3" y1="8" x2="21" y2="8"/>
+                <line x1="3" y1="16" x2="21" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Neon Cyberpunk Tic-Tac-Toe</h3>
+            <p class="card-text">
+              A high-octane cyberpunk themed strategy web game. Features algorithmic win-condition checking, scorekeeping state machines, neon glowing CSS animations, and smooth touch-first mobile controls.
+            </p>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/kenchuv1974-ai/tic-tac-toe-game" target="_blank" rel="noopener" class="link-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              View on GitHub &rarr;
+            </a>
+            <span class="pill pill-active" style="font-size: 0.75rem;">JavaScript</span>
+          </div>
+        </div>
+
+        <!-- Project 4: IDT Smart Campus Activity -->
         <div class="card project-card project-item" data-category="idt">
           <div>
             <div class="project-img-box">
               <span class="project-tag">IDT Activity Core</span>
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5">
+              <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5">
                 <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
                 <line x1="9" y1="21" x2="15" y2="21"/>
               </svg>
@@ -79,16 +150,16 @@
           </div>
           <div class="project-actions">
             <span class="pill pill-active" style="font-size: 0.75rem;">Design Thinking</span>
-            <span class="pill" style="font-size: 0.75rem;">IoT Concept</span>
+            <span class="pill" style="font-size: 0.75rem;">IoT Sensors</span>
           </div>
         </div>
 
-        <!-- Project 2: Multipage Portfolio Website -->
-        <div class="card project-card project-item" data-category="web">
+        <!-- Project 5: Multipage Portfolio Website (GitHub Repository) -->
+        <div class="card project-card project-item" data-category="github">
           <div>
             <div class="project-img-box">
-              <span class="project-tag">Live Showcase</span>
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5">
+              <span class="project-tag">GitHub: kenchuv1974-ai</span>
+              <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="1.5">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                 <line x1="8" y1="21" x2="16" y2="21"/>
                 <line x1="12" y1="17" x2="12" y2="21"/>
@@ -96,99 +167,36 @@
             </div>
             <h3 class="card-title">Multipage Personal Portfolio Website</h3>
             <p class="card-text">
-              A responsive 5-page personal engineering portfolio engineered using semantic HTML5, pure CSS3, and JavaScript. Designed following modern UI/UX principles, mobile drawer navigation, live contact validation, and deployable on GitHub Pages.
+              A 5-page responsive portfolio developed with vanilla CSS, semantic HTML5, and interactive JavaScript. Includes client-side photo upload and local storage persistence. Hosted publicly on GitHub Pages.
             </p>
           </div>
           <div class="project-actions">
-            <span class="pill pill-active" style="font-size: 0.75rem;">HTML5/CSS3</span>
-            <span class="pill" style="font-size: 0.75rem;">JavaScript</span>
-            <span class="pill" style="font-size: 0.75rem;">GitHub Pages</span>
+            <a href="https://github.com/kenchuv1974-ai/portfolio-website" target="_blank" rel="noopener" class="link-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              View on GitHub &rarr;
+            </a>
+            <span class="pill pill-active" style="font-size: 0.75rem;">GitHub Pages</span>
           </div>
         </div>
 
-        <!-- Project 3: Interactive Tic-Tac-Toe Game -->
-        <div class="card project-card project-item" data-category="web">
-          <div>
-            <div class="project-img-box">
-              <span class="project-tag">Interactive App</span>
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.5">
-                <line x1="8" y1="3" x2="8" y2="21"/>
-                <line x1="16" y1="3" x2="16" y2="21"/>
-                <line x1="3" y1="8" x2="21" y2="8"/>
-                <line x1="3" y1="16" x2="21" y2="16"/>
-              </svg>
-            </div>
-            <h3 class="card-title">Interactive Tic-Tac-Toe Arcade</h3>
-            <p class="card-text">
-              A browser-based strategy game built with modular JavaScript. Implements dynamic win-condition verification algorithms, a clean retro neon interface, score tracking, and smooth touch-friendly mobile controls.
-            </p>
-          </div>
-          <div class="project-actions">
-            <span class="pill pill-active" style="font-size: 0.75rem;">Algorithms</span>
-            <span class="pill" style="font-size: 0.75rem;">Game Logic</span>
-          </div>
-        </div>
-
-        <!-- Project 4: C Programming Student Database -->
-        <div class="card project-card project-item" data-category="c-prog">
-          <div>
-            <div class="project-img-box">
-              <span class="project-tag">CLI Software</span>
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5">
-                <polyline points="4 17 10 11 4 5"/>
-                <line x1="12" y1="19" x2="20" y2="19"/>
-              </svg>
-            </div>
-            <h3 class="card-title">Student Information & Marks CLI (C)</h3>
-            <p class="card-text">
-              A console application developed in C programming leveraging structs, pointers, and persistent file I/O operations. Allows college administration to record student USN, compute CGPA/SGPA, sort records, and search by registration number.
-            </p>
-          </div>
-          <div class="project-actions">
-            <span class="pill pill-active" style="font-size: 0.75rem;">C Language</span>
-            <span class="pill" style="font-size: 0.75rem;">File I/O</span>
-            <span class="pill" style="font-size: 0.75rem;">Data Structures</span>
-          </div>
-        </div>
-
-        <!-- Project 5: Certification 1 -->
+        <!-- Project 6: Certifications & Honors -->
         <div class="card project-card project-item" data-category="cert">
           <div>
             <div class="project-img-box">
-              <span class="project-tag">Certified</span>
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.5">
+              <span class="project-tag">Honor & Certification</span>
+              <svg width="55" height="55" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.5">
                 <circle cx="12" cy="8" r="7"/>
                 <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
               </svg>
             </div>
-            <h3 class="card-title">Design Thinking for Innovation</h3>
+            <h3 class="card-title">Design Thinking & Academic Honors</h3>
             <p class="card-text">
-              Completed certification on Human-Centered Design Methodologies, user persona empathy mapping, and rapid low-fidelity prototyping. Applied directly within the IDT curriculum at BGSCET.
+              Certified in Human-Centered Design Methodologies by Infosys Springboard. Commended for academic merit in pre-university sciences and active innovation contributions during 1st year engineering exhibitions at BGSCET.
             </p>
           </div>
           <div class="project-actions">
             <span class="pill pill-active" style="font-size: 0.75rem;">Infosys Springboard</span>
-            <span class="pill" style="font-size: 0.75rem;">Verified</span>
-          </div>
-        </div>
-
-        <!-- Project 6: Certification 2 & Academic Honor -->
-        <div class="card project-card project-item" data-category="cert">
-          <div>
-            <div class="project-img-box">
-              <span class="project-tag">Academic Award</span>
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="1.5">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-              </svg>
-            </div>
-            <h3 class="card-title">Academic Merit & Science Exhibition</h3>
-            <p class="card-text">
-              Recognized for high academic standings during pre-university and 1st year engineering internal reviews. Participated in inter-college science expos showcasing sustainable tech solutions.
-            </p>
-          </div>
-          <div class="project-actions">
-            <span class="pill pill-active" style="font-size: 0.75rem;">BGSCET Honor</span>
-            <span class="pill" style="font-size: 0.75rem;">Excellence</span>
+            <span class="pill" style="font-size: 0.75rem;">BGSCET Merit</span>
           </div>
         </div>
 
@@ -207,12 +215,12 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Harshith • BGSCET IDT Portfolio</h4>
+          <h4>Harshith V • BGSCET IDT Portfolio</h4>
           <p>
             Created for the Innovation and Design Thinking (IDT) Activity at BGS College of Engineering and Technology, Bengaluru.
           </p>
           <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--accent-cyan);">
-            USN: 1BG24CS001 | Section: A | 1st Year B.E.
+            USN: 1BG24CS001 | Section: A | 1st Year B.E. (AI & ML)
           </p>
         </div>
         <div class="footer-col">

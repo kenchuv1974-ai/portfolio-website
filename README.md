@@ -9,11 +9,13 @@
 
 - **Student Name:** Harshith V
 - **USN:** 1BG24CS001 *(Update with your official USN)*
-- **Branch:** Computer Science & Engineering (or your respective branch)
+- **Branch:** Artificial Intelligence & Machine Learning (AI & ML)
 - **Section:** A *(Update with your section)*
+- **Email:** harshithv1512@gmail.com
 - **Semester:** 1st Year (Semester 1 / 2)
 - **Subject:** Innovation and Design Thinking (IDT)
 - **Published Website Link:** `https://kenchuv1974-ai.github.io/portfolio-website/`
+- **GitHub Repositories:** [ClassPilot](https://github.com/kenchuv1974-ai/ClassPilot) | [Tic-Tac-Toe](https://github.com/kenchuv1974-ai/tic-tac-toe-game) | [Portfolio](https://github.com/kenchuv1974-ai/portfolio-website)
 
 ---
 

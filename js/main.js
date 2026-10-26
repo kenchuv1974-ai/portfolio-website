@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilters();
   initContactForm();
   initSkillBars();
+  initPhotoManager();
 });
 
 /**
@@ -169,3 +170,91 @@ function initSkillBars() {
 
   skillBars.forEach(bar => observer.observe(bar));
 }
+
+/**
+ * 7. Photo Upload, Edit & Local Storage Persistence
+ */
+function initPhotoManager() {
+  const avatarWrapper = document.querySelector('.avatar-wrapper');
+  const fileInput = document.getElementById('avatarFileInput');
+  const uploadBtn = document.getElementById('uploadPhotoBtn');
+  const editBadge = document.getElementById('avatarEditBadge');
+  const resetBtn = document.getElementById('resetPhotoBtn');
+
+  const STORAGE_KEY = 'portfolio_profile_photo_url';
+
+  // Apply saved photo across pages
+  function applyPhoto(photoDataUrl) {
+    if (!avatarWrapper) return;
+    
+    let img = avatarWrapper.querySelector('.avatar-img');
+    const initials = avatarWrapper.querySelector('.avatar-initials');
+
+    if (photoDataUrl) {
+      if (!img) {
+        img = document.createElement('img');
+        img.className = 'avatar-img';
+        img.alt = 'Harshith V - Profile Photo';
+        avatarWrapper.insertBefore(img, avatarWrapper.firstChild);
+      }
+      img.src = photoDataUrl;
+      img.style.display = 'block';
+      if (initials) initials.style.display = 'none';
+      if (resetBtn) resetBtn.style.display = 'inline-flex';
+    } else {
+      if (img) img.style.display = 'none';
+      if (initials) initials.style.display = 'flex';
+      if (resetBtn) resetBtn.style.display = 'none';
+    }
+  }
+
+  // Load on startup
+  const savedPhoto = localStorage.getItem(STORAGE_KEY);
+  if (savedPhoto) {
+    applyPhoto(savedPhoto);
+  }
+
+  // Trigger file dialog
+  function triggerFileInput() {
+    if (fileInput) fileInput.click();
+  }
+
+  if (editBadge) editBadge.addEventListener('click', triggerFileInput);
+  if (uploadBtn) uploadBtn.addEventListener('click', triggerFileInput);
+
+  // Handle file selection
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file (.jpg, .png, .webp).');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target.result;
+        try {
+          localStorage.setItem(STORAGE_KEY, dataUrl);
+          applyPhoto(dataUrl);
+        } catch (err) {
+          console.warn('Image size exceeds local storage quota. Using in memory for this session.', err);
+          applyPhoto(dataUrl);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Handle reset
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEY);
+      applyPhoto(null);
+      if (fileInput) fileInput.value = '';
+    });
+  }
+}
+
