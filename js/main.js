@@ -91,8 +91,8 @@ function initProjectFilters() {
       const filterValue = btn.getAttribute('data-filter');
 
       projectCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
+        const category = card.getAttribute('data-category') || '';
+        if (filterValue === 'all' || category === filterValue || category.includes(filterValue)) {
           card.style.display = 'block';
           card.style.animation = 'fadeIn 0.4s ease forwards';
         } else {
