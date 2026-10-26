@@ -7,13 +7,13 @@
 ## 📌 Student & Submission Details
 *(Fill in your exact details before submitting to your IDT Faculty)*
 
-- **Student Name:** Harshith
+- **Student Name:** Harshith V
 - **USN:** 1BG24CS001 *(Update with your official USN)*
 - **Branch:** Computer Science & Engineering (or your respective branch)
 - **Section:** A *(Update with your section)*
 - **Semester:** 1st Year (Semester 1 / 2)
 - **Subject:** Innovation and Design Thinking (IDT)
-- **Published Website Link:** `https://<your-username>.github.io/portfolio-website/`
+- **Published Website Link:** `https://kenchuv1974-ai.github.io/portfolio-website/`
 
 ---
 
