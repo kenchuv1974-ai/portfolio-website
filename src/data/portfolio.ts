@@ -23,10 +23,10 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/sushmita-dasari-227a40284/',
     github: 'https://github.com/Sushmitadasari',
   },
-  resumePdf: '/assets/Sushmita_Dasari_Resume.pdf',
+  resumePdf: './assets/Sushmita_Dasari_Resume.pdf',
   portrait: {
-    src: '/assets/portrait-720.webp',
-    srcSet: '/assets/portrait-420.webp 420w, /assets/portrait-720.webp 720w, /assets/portrait-1100.webp 1100w',
+    src: './assets/portrait-720.webp',
+    srcSet: './assets/portrait-420.webp 420w, ./assets/portrait-720.webp 720w, ./assets/portrait-1100.webp 1100w',
     alt: 'Portrait of Sushmita Dasari',
   },
   interests: ['System Design', 'Cloud Computing (AWS)', 'Machine Learning'],

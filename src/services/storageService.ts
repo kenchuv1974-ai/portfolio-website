@@ -77,7 +77,7 @@ export const initialDefaultData: PortfolioData = {
   siteSettings: {
     siteTitle: 'Sushmita — The Series',
     siteDescription: 'Full-Stack Developer • AI / ML • Java. Every project is an Original.',
-    ogImage: '/assets/og-image.jpg',
+    ogImage: './assets/og-image.jpg',
     themeColor: '#07070a',
     copyrightText: 'A DASARI ORIGINAL // ALL RIGHTS RESERVED',
     footerQuote: 'TO BE CONTINUED…',
