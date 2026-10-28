@@ -15,13 +15,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="preload" as="image" href="./assets/portrait-720.webp" type="image/webp" />
-    <script type="module" crossorigin src="./assets/index-B71klX_r.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/motion-SDeSzL5a.js">
-    <link rel="modulepreload" crossorigin href="./assets/react-CzUbC6_L.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-k2Rhsm-7.css">
+    <script type="module" crossorigin src="./assets/index.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/motion.js">
+    <link rel="modulepreload" crossorigin href="./assets/react.js">
+    <link rel="stylesheet" crossorigin href="./assets/index.css">
   </head>
   <body>
     <div id="root"></div>
-    <noscript>Sushmita Dasari — Full-Stack Developer. Please enable JavaScript to watch the series.</noscript>
+    <noscript>Please enable JavaScript to watch the series.</noscript>
+    <script>
+      // Runtime fallback: if /src/main.tsx does not mount React on static hosting, inject precompiled bundle
+      setTimeout(function () {
+        var root = document.getElementById('root');
+        if (root && root.childNodes.length === 0) {
+          var l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.crossOrigin = 'anonymous';
+          l.href = './assets/index.css';
+          document.head.appendChild(l);
+
+          var s = document.createElement('script');
+          s.type = 'module';
+          s.crossOrigin = 'anonymous';
+          s.src = './assets/index.js';
+          document.body.appendChild(s);
+        }
+      }, 100);
+    </script>
   </body>
 </html>
