@@ -87,12 +87,19 @@ body {
   display: none;
 }
 
-/* Custom cursor: hide the native one only when ours is active */
+/* Custom cursor: hide the native one only when ours is active, but NEVER hide on inputs */
 .has-custom-cursor,
 .has-custom-cursor a,
 .has-custom-cursor button,
 .has-custom-cursor [role='button'] {
   cursor: none;
+}
+
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select,
+.has-custom-cursor [contenteditable="true"] {
+  cursor: text !important;
 }
 
 .text-outline {
