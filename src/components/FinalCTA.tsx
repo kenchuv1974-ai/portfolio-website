@@ -92,11 +92,11 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
         <button
           type="button"
           onClick={openAdmin}
-          className="text-red-400 hover:text-red-300 font-mono transition cursor-pointer flex items-center gap-1"
-          title="Admin Control Center (Ctrl+Shift+A)"
+          className="text-red-400 hover:text-red-300 font-mono transition cursor-pointer flex items-center gap-1.5"
+          title="Command Terminal (Ctrl+Shift+A)"
         >
-          <span>⚡ ADMIN ACCESS</span>
-          <span className="text-[10px] text-zinc-500">[Ctrl+Shift+A]</span>
+          <span>⚡ TERMINAL</span>
+          <span className="text-[10px] text-zinc-500 font-sans">[Ctrl+Shift+A]</span>
         </button>
       </div>
 

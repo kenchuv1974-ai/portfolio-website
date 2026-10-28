@@ -204,7 +204,7 @@ export default function Navbar({ order, profileId, onSwitch }: { order: SectionI
               }}
               className="mt-4 flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-red-400 py-2 border-t border-white/10 w-full"
             >
-              <span>⚡ Admin Command Terminal (harsh)</span>
+              <span>⚡ Admin Command Terminal</span>
             </button>
           </motion.nav>
         )}
