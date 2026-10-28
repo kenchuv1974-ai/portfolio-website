@@ -155,6 +155,31 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
 
         {/* Profile Basic Info */}
         <div className="md:col-span-2 space-y-4">
+          
+          {/* Top Site & Browser Tab Title */}
+          <div className="rounded-xl bg-red-950/20 border border-red-900/40 p-3.5 space-y-1">
+            <label className="block text-xs font-mono uppercase text-red-300 font-bold flex items-center justify-between">
+              <span>Browser Tab Title (Site Name in Browser Top Bar)</span>
+              <span className="text-[10px] text-zinc-400 font-normal">Updates tab title in real-time</span>
+            </label>
+            <input
+              type="text"
+              value={data.siteSettings.siteTitle}
+              onChange={(e) => {
+                const val = e.target.value;
+                onChange((prev) => ({
+                  ...prev,
+                  siteSettings: {
+                    ...prev.siteSettings,
+                    siteTitle: val,
+                  },
+                }));
+              }}
+              placeholder="e.g. Harsh — The Series"
+              className="w-full rounded-lg bg-zinc-950 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-medium"
+            />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-mono uppercase text-zinc-400 mb-1">
@@ -190,7 +215,7 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
                 type="text"
                 value={p.firstName}
                 onChange={(e) => updateField('firstName', e.target.value)}
-                placeholder="e.g. SUSHMITA"
+                placeholder="e.g. HARSH"
                 className="w-full rounded-xl bg-zinc-950/80 border border-zinc-700/80 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-['Bebas_Neue',sans-serif] tracking-wider text-base"
               />
             </div>
@@ -216,7 +241,7 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
                 type="text"
                 value={p.originalLabel}
                 onChange={(e) => updateField('originalLabel', e.target.value)}
-                placeholder="e.g. A DASARI ORIGINAL"
+                placeholder="e.g. AN H-ORIGINAL"
                 className="w-full rounded-xl bg-zinc-950/80 border border-zinc-700/80 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-mono text-xs"
               />
             </div>

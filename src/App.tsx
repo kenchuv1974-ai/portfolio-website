@@ -66,6 +66,12 @@ function Series() {
   const activeProfile = viewerProfiles.find((p) => p.id === profileId) || viewerProfiles[0];
   const order = activeProfile.order;
 
+  // Dynamically synchronize browser tab title with CMS siteTitle and profile name
+  useEffect(() => {
+    const title = data.siteSettings?.siteTitle || `${data.profile?.displayName || 'Harsh'} — The Series`;
+    document.title = title;
+  }, [data.siteSettings?.siteTitle, data.profile?.displayName]);
+
   useEffect(() => {
     if (stage === 'home') return;
     lock();

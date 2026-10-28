@@ -14,9 +14,9 @@ import {
 } from '../data/portfolio';
 import type { PortfolioData } from '../types/portfolio';
 
-const STORAGE_PUBLISHED_KEY = 'portfolio_series_published_v3';
-const STORAGE_DRAFT_KEY = 'portfolio_series_draft_v3';
-const STORAGE_MEDIA_CACHE_KEY = 'portfolio_series_media_v3';
+const STORAGE_PUBLISHED_KEY = 'portfolio_series_published_v4';
+const STORAGE_DRAFT_KEY = 'portfolio_series_draft_v4';
+const STORAGE_MEDIA_CACHE_KEY = 'portfolio_series_media_v4';
 
 export const initialDefaultData: PortfolioData = {
   profile: {
@@ -75,15 +75,15 @@ export const initialDefaultData: PortfolioData = {
     order: [...vp.order],
   })),
   siteSettings: {
-    siteTitle: 'Sushmita — The Series',
+    siteTitle: 'Harsh — The Series',
     siteDescription: 'Full-Stack Developer • AI / ML • Java. Every project is an Original.',
     ogImage: './assets/og-image.jpg',
     themeColor: '#07070a',
-    copyrightText: 'A DASARI ORIGINAL // ALL RIGHTS RESERVED',
+    copyrightText: 'AN H-ORIGINAL // ALL RIGHTS RESERVED',
     footerQuote: 'TO BE CONTINUED…',
   },
   lastUpdated: new Date().toISOString(),
-  version: 3,
+  version: 4,
 };
 
 /**

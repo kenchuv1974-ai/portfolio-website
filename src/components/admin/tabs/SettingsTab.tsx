@@ -86,13 +86,15 @@ export default function SettingsTab({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-mono uppercase text-zinc-400 mb-1">
-              Browser Title Tag
+            <label className="block text-xs font-mono uppercase text-zinc-400 mb-1 flex items-center justify-between">
+              <span>Browser Title Tag (Site Name on Top Tab)</span>
+              <span className="text-[10px] text-zinc-500 lowercase">shown in browser tab</span>
             </label>
             <input
               type="text"
               value={s.siteTitle}
               onChange={(e) => updateSetting('siteTitle', e.target.value)}
+              placeholder="e.g. Harsh — The Series"
               className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
             />
           </div>

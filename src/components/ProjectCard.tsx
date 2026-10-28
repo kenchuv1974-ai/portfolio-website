@@ -33,9 +33,9 @@ export default function ProjectCard({ project, index, onOpen }: { project: Proje
             </div>
           </motion.div>
 
-          <div className="absolute left-5 top-5 flex items-center gap-2 sm:left-7 sm:top-7">
-            <span className="font-display text-xl leading-none text-crimson-2">S</span>
-            <span className="text-[10px] font-bold tracking-[0.34em] text-bone/80">ORIGINAL</span>
+          <div className="absolute left-5 top-5 flex items-center gap-1.5 sm:left-7 sm:top-7">
+            <span className="font-display text-xl leading-none text-crimson-2">H</span>
+            <span className="text-[10px] font-bold tracking-[0.34em] text-bone/80">-ORIGINAL</span>
           </div>
           <span className="absolute right-5 top-5 rounded border border-white/30 px-1.5 py-px text-[10px] font-bold text-bone sm:right-7 sm:top-7">{project.year}</span>
 

@@ -12,7 +12,7 @@ export const profile = {
   firstName: 'SUSHMITA',
   seriesTag: 'THE SERIES',
   /** Fictional studio card shown at the very start of the opening sequence. */
-  originalLabel: 'A DASARI ORIGINAL',
+  originalLabel: 'AN H-ORIGINAL',
   role: 'Full-Stack Developer',
   tagline: ['Full-Stack Developer', 'AI / ML', 'Java'],
   intro:
