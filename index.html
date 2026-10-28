@@ -18,7 +18,26 @@
   </head>
   <body>
     <div id="root"></div>
-    <noscript>Sushmita Dasari — Full-Stack Developer. Please enable JavaScript to watch the series.</noscript>
+    <noscript>Please enable JavaScript to watch the series.</noscript>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Runtime fallback: if /src/main.tsx does not mount React on static hosting, inject precompiled bundle
+      setTimeout(function () {
+        var root = document.getElementById('root');
+        if (root && root.childNodes.length === 0) {
+          var l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.crossOrigin = 'anonymous';
+          l.href = './assets/index.css';
+          document.head.appendChild(l);
+
+          var s = document.createElement('script');
+          s.type = 'module';
+          s.crossOrigin = 'anonymous';
+          s.src = './assets/index.js';
+          document.body.appendChild(s);
+        }
+      }, 100);
+    </script>
   </body>
 </html>
