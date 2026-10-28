@@ -10,7 +10,7 @@ export default function About() {
   const firstExp = experience[0] || { role: 'Developer', company: 'Tech', period: 'Current' };
 
   const facts = [
-    { k: 'Now', v: profile.role, s: `${firstEdu.school} · ${firstEdu.score}` },
+    { k: 'Now', v: profile.role, s: `${firstEdu.school}${firstEdu.department ? ` (${firstEdu.department})` : ''} · ${firstEdu.score}` },
     { k: 'Training', v: `${firstExp.role}, ${firstExp.company}`, s: firstExp.period },
     { k: 'Primary focus', v: profile.tagline[0] || 'Software Development', s: profile.tagline.slice(1).join(', ') },
     { k: 'Based in', v: profile.location, s: 'Available Worldwide' },

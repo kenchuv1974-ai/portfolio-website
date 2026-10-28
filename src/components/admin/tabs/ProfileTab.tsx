@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Camera, FileText, Globe, Mail, Upload } from 'lucide-react';
+import { Camera, ExternalLink, FileText, Globe, Mail, RotateCcw, Trash2, Upload } from 'lucide-react';
 import { processFileUpload } from '../../../services/storageService';
 import type { PortfolioData } from '../../../types/portfolio';
 
@@ -86,6 +86,28 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
     } finally {
       if (resumeInputRef.current) resumeInputRef.current.value = '';
     }
+  };
+
+  const handleDeleteResume = () => {
+    onChange((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        resumePdf: '',
+      },
+    }));
+    onShowToast('Resume Removed', 'Cleared resume document. Public download button will be hidden.', 'success');
+  };
+
+  const handleResetResume = () => {
+    onChange((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        resumePdf: './assets/Sushmita_Dasari_Resume.pdf',
+      },
+    }));
+    onShowToast('Resume Restored', 'Reverted back to original bundle resume PDF.', 'success');
   };
 
   return (
@@ -329,44 +351,101 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
           </div>
         </div>
 
-        {/* Resume PDF Controls */}
-        <div className="pt-3 border-t border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <div className="text-xs font-mono uppercase text-zinc-300 flex items-center gap-1.5">
-              <FileText className="w-3.5 h-3.5 text-red-400" />
-              <span>Resume PDF Document</span>
+        {/* Resume PDF Controls & Management */}
+        <div className="pt-4 border-t border-zinc-800 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <div className="text-xs font-mono uppercase text-zinc-200 flex items-center gap-1.5 font-bold">
+                <FileText className="w-3.5 h-3.5 text-red-400" />
+                <span>Resume PDF Document Management</span>
+              </div>
+              <div className="text-xs text-zinc-500 mt-0.5">
+                Controls the resume linked in the hero CTA button, top navigation, and screenplay viewer.
+              </div>
             </div>
-            <div className="text-xs text-zinc-500 mt-0.5">
-              Linked across hero CTA button, top navigation, and interactive resume viewer sheet.
+
+            <div className="flex items-center gap-1.5 flex-wrap">
+              {p.resumePdf ? (
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  {p.resumePdf.startsWith('data:') ? 'Custom Uploaded PDF' : 'Attached'}
+                </span>
+              ) : (
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-red-500/15 text-red-400 border border-red-500/30 font-bold">
+                  No Resume Attached
+                </span>
+              )}
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Editable URL Input */}
+          <div>
+            <label className="block text-[11px] font-mono uppercase text-zinc-400 mb-1">
+              Resume Document Link or Data URI (Edit / Paste custom URL)
+            </label>
             <input
-              ref={resumeInputRef}
-              type="file"
-              accept=".pdf,application/pdf"
-              onChange={handleResumeUpload}
-              className="hidden"
+              type="text"
+              value={p.resumePdf || ''}
+              onChange={(e) => updateField('resumePdf', e.target.value)}
+              placeholder="e.g. ./assets/Sushmita_Dasari_Resume.pdf or https://drive.google.com/..."
+              className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-xs text-zinc-200 focus:outline-none focus:border-red-500 font-mono"
             />
-            <button
-              type="button"
-              onClick={() => resumeInputRef.current?.click()}
-              className="px-3.5 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-1.5 transition cursor-pointer"
-            >
-              <Upload className="w-3.5 h-3.5" />
-              <span>Upload New Resume PDF</span>
-            </button>
-            {p.resumePdf && (
-              <a
-                href={p.resumePdf}
-                target="_blank"
-                rel="noreferrer"
-                className="px-3 py-2 rounded-lg bg-red-950/40 border border-red-900/60 text-red-300 hover:bg-red-900/40 text-xs font-medium transition cursor-pointer"
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <input
+                ref={resumeInputRef}
+                type="file"
+                accept=".pdf,application/pdf"
+                onChange={handleResumeUpload}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => resumeInputRef.current?.click()}
+                className="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-red-950/40"
               >
-                Preview PDF
-              </a>
-            )}
+                <Upload className="w-3.5 h-3.5" />
+                <span>Upload New PDF</span>
+              </button>
+
+              {p.resumePdf && (
+                <a
+                  href={p.resumePdf}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-1.5 transition cursor-pointer border border-zinc-700"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
+                  <span>Preview PDF</span>
+                </a>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={handleResetResume}
+                title="Reset to original bundle PDF"
+                className="px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs font-mono flex items-center gap-1.5 transition cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
+                <span>Reset to Default</span>
+              </button>
+
+              {p.resumePdf && (
+                <button
+                  type="button"
+                  onClick={handleDeleteResume}
+                  title="Remove resume document"
+                  className="px-3 py-2 rounded-xl bg-red-950/40 border border-red-900/60 hover:bg-red-900/50 text-red-400 text-xs font-mono flex items-center gap-1.5 transition cursor-pointer"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Delete Resume</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
 

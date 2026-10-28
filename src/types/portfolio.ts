@@ -44,8 +44,10 @@ export type Education = {
   school: string;
   place: string;
   degree: string;
+  department?: string;
   period: string;
   score: string;
+  isCurrent?: boolean;
   description?: string;
   logo?: string;
 };
@@ -60,7 +62,12 @@ export type Experience = {
   logo?: string;
 };
 
-export type Skill = { name: string; mono: string; note?: string };
+export type Skill = {
+  name: string;
+  mono: string;
+  note?: string;
+  isLearning?: boolean;
+};
 export type SkillCategory = { id: string; title: string; subtitle: string; skills: Skill[] };
 
 export type Episode = {

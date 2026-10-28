@@ -36,16 +36,20 @@ export const education = [
   {
     school: 'Aditya Engineering College',
     place: 'Surampalem',
-    degree: 'Bachelor of Technology — Artificial Intelligence and Machine Learning',
+    degree: 'Bachelor of Technology',
+    department: 'Artificial Intelligence and Machine Learning',
     period: 'October 2023 – Present',
     score: 'CGPA 9.10',
+    isCurrent: true,
   },
   {
     school: 'Sri Chaitanya Junior College',
     place: 'Kakinada',
-    degree: 'BIEAP — MPC',
+    degree: 'BIEAP — Intermediate',
+    department: 'MPC (Mathematics, Physics, Chemistry)',
     period: 'June 2021 – May 2023',
     score: 'Score 925/1000',
+    isCurrent: false,
   },
 ];
 

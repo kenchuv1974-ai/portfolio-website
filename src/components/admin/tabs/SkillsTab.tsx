@@ -13,6 +13,7 @@ export default function SkillsTab({ data, onChange, onShowConfirm }: SkillsTabPr
   const [newSkillName, setNewSkillName] = useState('');
   const [newSkillMono, setNewSkillMono] = useState('');
   const [newSkillNote, setNewSkillNote] = useState('');
+  const [newSkillIsLearning, setNewSkillIsLearning] = useState(false);
 
   const categories = data.skillCategories;
   const currentCat = categories.find((c) => c.id === selectedCatId) || categories[0];
@@ -36,6 +37,7 @@ export default function SkillsTab({ data, onChange, onShowConfirm }: SkillsTabPr
       name: newSkillName.trim(),
       mono: mono.charAt(0).toUpperCase() + mono.slice(1).toLowerCase(),
       note: newSkillNote.trim() || undefined,
+      isLearning: newSkillIsLearning,
     };
 
     onChange((prev) => ({
@@ -48,6 +50,24 @@ export default function SkillsTab({ data, onChange, onShowConfirm }: SkillsTabPr
     setNewSkillName('');
     setNewSkillMono('');
     setNewSkillNote('');
+    setNewSkillIsLearning(false);
+  };
+
+  const toggleSkillLearning = (skillIndex: number) => {
+    if (!currentCat) return;
+    onChange((prev) => ({
+      ...prev,
+      skillCategories: prev.skillCategories.map((c) =>
+        c.id === currentCat.id
+          ? {
+              ...c,
+              skills: c.skills.map((s, idx) =>
+                idx === skillIndex ? { ...s, isLearning: !s.isLearning } : s
+              ),
+            }
+          : c
+      ),
+    }));
   };
 
   const handleRemoveSkill = (skillIndex: number) => {
@@ -174,24 +194,39 @@ export default function SkillsTab({ data, onChange, onShowConfirm }: SkillsTabPr
                   key={idx}
                   className="rounded-xl bg-zinc-950 border border-zinc-800 p-3 flex items-center justify-between group hover:border-zinc-700 transition"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center font-mono text-xs font-bold text-red-400">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center font-mono text-xs font-bold text-red-400 shrink-0">
                       {skill.mono}
                     </div>
-                    <div>
-                      <div className="text-sm font-semibold text-zinc-100">{skill.name}</div>
-                      {skill.note && (
-                        <div className="text-[10px] font-mono text-amber-400 uppercase">
-                          {skill.note}
-                        </div>
-                      )}
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-zinc-100 truncate">{skill.name}</div>
+                      <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
+                        <button
+                          type="button"
+                          onClick={() => toggleSkillLearning(idx)}
+                          title="Click to toggle Still Learning status"
+                          className={`text-[9px] font-mono px-1.5 py-0.5 rounded uppercase tracking-wider transition cursor-pointer flex items-center gap-1 ${
+                            skill.isLearning
+                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                              : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200'
+                          }`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full ${skill.isLearning ? 'bg-emerald-400 animate-pulse' : 'bg-zinc-500'}`} />
+                          {skill.isLearning ? 'Learning' : 'Mastered'}
+                        </button>
+                        {skill.note && (
+                          <span className="text-[9px] font-mono text-amber-400 uppercase">
+                            {skill.note}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => handleRemoveSkill(idx)}
-                    className="p-1 text-zinc-600 hover:text-red-400 transition cursor-pointer"
+                    className="p-1 text-zinc-600 hover:text-red-400 transition cursor-pointer shrink-0 ml-2"
                     title="Remove Skill"
                   >
                     ✕
@@ -204,43 +239,59 @@ export default function SkillsTab({ data, onChange, onShowConfirm }: SkillsTabPr
           {/* Add skill form */}
           <form
             onSubmit={handleAddSkill}
-            className="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-center gap-3"
+            className="pt-4 border-t border-zinc-800 space-y-3"
           >
-            <div className="flex-1 w-full">
-              <input
-                type="text"
-                placeholder="Skill name (e.g. React, Docker, Python)"
-                value={newSkillName}
-                onChange={(e) => setNewSkillName(e.target.value)}
-                className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
-              />
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <div className="flex-1 w-full">
+                <input
+                  type="text"
+                  placeholder="Skill name (e.g. React, Docker, Python)"
+                  value={newSkillName}
+                  onChange={(e) => setNewSkillName(e.target.value)}
+                  className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
+                />
+              </div>
+              <div className="w-full sm:w-28">
+                <input
+                  type="text"
+                  placeholder="Abbr (e.g. Re)"
+                  maxLength={4}
+                  value={newSkillMono}
+                  onChange={(e) => setNewSkillMono(e.target.value)}
+                  className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-mono text-center"
+                />
+              </div>
+              <div className="w-full sm:w-36">
+                <input
+                  type="text"
+                  placeholder="Note (e.g. Primary)"
+                  value={newSkillNote}
+                  onChange={(e) => setNewSkillNote(e.target.value)}
+                  className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 text-xs"
+                />
+              </div>
             </div>
-            <div className="w-full sm:w-28">
-              <input
-                type="text"
-                placeholder="Abbr (e.g. Re)"
-                maxLength={4}
-                value={newSkillMono}
-                onChange={(e) => setNewSkillMono(e.target.value)}
-                className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-mono text-center"
-              />
+
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-zinc-300">
+                <input
+                  type="checkbox"
+                  checked={newSkillIsLearning}
+                  onChange={(e) => setNewSkillIsLearning(e.target.checked)}
+                  className="rounded border-zinc-700 bg-zinc-900 text-emerald-500 focus:ring-0 focus:ring-offset-0"
+                />
+                <span className="font-mono text-emerald-400 font-semibold">🌱 Still Learning / In Progress</span>
+                <span className="text-zinc-500 text-[11px]">(shows live Learning badge)</span>
+              </label>
+
+              <button
+                type="submit"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add Skill</span>
+              </button>
             </div>
-            <div className="w-full sm:w-36">
-              <input
-                type="text"
-                placeholder="Note (e.g. Primary)"
-                value={newSkillNote}
-                onChange={(e) => setNewSkillNote(e.target.value)}
-                className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 text-xs"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 transition cursor-pointer shrink-0"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Add Skill</span>
-            </button>
           </form>
 
         </div>

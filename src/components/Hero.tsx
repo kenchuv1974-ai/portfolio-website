@@ -51,7 +51,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
   ];
 
   const floating = [
-    { text: firstEdu.score, sub: firstEdu.degree || 'Academic Standing', pos: 'left-[2%] top-[30%]', depth: 1 },
+    { text: firstEdu.score, sub: firstEdu.department ? `${firstEdu.degree} (${firstEdu.department})` : (firstEdu.degree || 'Academic Standing'), pos: 'left-[2%] top-[30%]', depth: 1 },
     { text: `${firstAchieve.title}`, sub: firstAchieve.org, pos: 'right-[0%] top-[18%]', depth: -1 },
     { text: profile.tagline.slice(0, 3).join(' · '), sub: 'Primary focus', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
   ];

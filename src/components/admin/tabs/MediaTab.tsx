@@ -122,25 +122,31 @@ export default function MediaTab({ data, onShowToast }: MediaTabProps) {
                 <span className="text-[10px] font-mono text-zinc-500">PUBLIC PDF</span>
               </div>
               <p className="text-xs text-zinc-400 truncate mb-3">
-                {data.profile.resumePdf.substring(0, 45)}...
+                {data.profile.resumePdf
+                  ? `${data.profile.resumePdf.substring(0, 45)}...`
+                  : 'No resume attached (manage in Profile tab)'}
               </p>
               <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard(data.profile.resumePdf, 'resume')}
-                  className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-mono flex items-center gap-1.5 transition cursor-pointer"
-                >
-                  {copiedKey === 'resume' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>Copy Link</span>
-                </button>
-                <a
-                  href={data.profile.resumePdf}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-red-950/40 border border-red-900/60 text-red-300 hover:bg-red-900/40 text-xs font-mono transition"
-                >
-                  View
-                </a>
+                {data.profile.resumePdf && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(data.profile.resumePdf, 'resume')}
+                      className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-mono flex items-center gap-1.5 transition cursor-pointer"
+                    >
+                      {copiedKey === 'resume' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>Copy Link</span>
+                    </button>
+                    <a
+                      href={data.profile.resumePdf}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 rounded-lg bg-red-950/40 border border-red-900/60 text-red-300 hover:bg-red-900/40 text-xs font-mono transition"
+                    >
+                      View
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           </div>

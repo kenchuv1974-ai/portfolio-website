@@ -87,15 +87,29 @@ export default function EducationTab({ data, onChange, onShowConfirm }: Educatio
             className="rounded-2xl bg-zinc-900/60 border border-zinc-800 p-5 flex flex-col justify-between hover:border-zinc-700 transition"
           >
             <div>
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                  {item.score}
-                </span>
+              <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                <div className="flex items-center gap-1.5">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    {item.score}
+                  </span>
+                  {item.isCurrent && (
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-mono uppercase bg-red-500/20 text-red-300 border border-red-500/40 font-bold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                      Pursuing
+                    </span>
+                  )}
+                </div>
                 <span className="text-xs font-mono text-zinc-500">{item.period}</span>
               </div>
 
               <h4 className="text-base font-bold text-white mb-1">{item.school}</h4>
-              <div className="text-xs font-mono text-red-400 mb-2">{item.degree}</div>
+              <div className="text-xs font-mono text-red-400 mb-1">{item.degree}</div>
+              {item.department && (
+                <div className="text-xs font-mono text-zinc-300 bg-zinc-950/80 border border-zinc-800 px-2 py-1 rounded-md mb-2">
+                  <span className="text-zinc-500 text-[10px] uppercase font-bold mr-1">DEPT:</span>
+                  {item.department}
+                </div>
+              )}
               <div className="text-xs text-zinc-500">{item.place}</div>
             </div>
 
@@ -151,21 +165,38 @@ export default function EducationTab({ data, onChange, onShowConfirm }: Educatio
                   required
                   value={editingItem.school}
                   onChange={(e) => setEditingItem({ ...editingItem, school: e.target.value })}
+                  placeholder="e.g. Aditya Engineering College"
                   className="w-full rounded-xl bg-zinc-900 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase text-zinc-400 mb-1">
-                  Degree / Program / Branch
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={editingItem.degree}
-                  onChange={(e) => setEditingItem({ ...editingItem, degree: e.target.value })}
-                  className="w-full rounded-xl bg-zinc-900 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-mono uppercase text-zinc-400 mb-1">
+                    Degree / Course
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={editingItem.degree}
+                    onChange={(e) => setEditingItem({ ...editingItem, degree: e.target.value })}
+                    placeholder="e.g. Bachelor of Technology"
+                    className="w-full rounded-xl bg-zinc-900 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono uppercase text-zinc-400 mb-1">
+                    Department / Branch (DEPT)
+                  </label>
+                  <input
+                    type="text"
+                    value={editingItem.department || ''}
+                    onChange={(e) => setEditingItem({ ...editingItem, department: e.target.value })}
+                    placeholder="e.g. Artificial Intelligence & ML"
+                    className="w-full rounded-xl bg-zinc-900 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
+                  />
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
@@ -178,6 +209,7 @@ export default function EducationTab({ data, onChange, onShowConfirm }: Educatio
                     required
                     value={editingItem.place}
                     onChange={(e) => setEditingItem({ ...editingItem, place: e.target.value })}
+                    placeholder="e.g. Surampalem"
                     className="w-full rounded-xl bg-zinc-900 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500"
                   />
                 </div>
@@ -209,6 +241,25 @@ export default function EducationTab({ data, onChange, onShowConfirm }: Educatio
                   placeholder="October 2023 – Present"
                   className="w-full rounded-xl bg-zinc-900 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-mono text-xs"
                 />
+              </div>
+
+              <div className="pt-2">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(editingItem.isCurrent)}
+                    onChange={(e) => setEditingItem({ ...editingItem, isCurrent: e.target.checked })}
+                    className="rounded border-zinc-700 bg-zinc-950 text-red-600 focus:ring-0 focus:ring-offset-0"
+                  />
+                  <div>
+                    <div className="text-xs font-semibold text-zinc-200">
+                      Still Learning / Currently Pursuing this Degree (DEPT)
+                    </div>
+                    <div className="text-[11px] text-zinc-500 font-mono">
+                      Highlights this department as currently in progress (Pursuing)
+                    </div>
+                  </div>
+                </label>
               </div>
 
               <div className="pt-3 border-t border-zinc-800 flex justify-end gap-3">

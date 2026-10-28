@@ -94,7 +94,15 @@ function SkillCard({ skill, hue, evidence }: { skill: Skill; hue: string; eviden
             <span className="font-mono text-xl font-bold tracking-tight" style={{ color: hue }}>
               {skill.mono}
             </span>
-            {skill.note && <span className="rounded bg-white/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-bone">{skill.note}</span>}
+            <div className="flex flex-col items-end gap-1">
+              {skill.isLearning && (
+                <span className="flex items-center gap-1 rounded bg-emerald-500/20 border border-emerald-500/40 px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-300 shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Learning
+                </span>
+              )}
+              {skill.note && <span className="rounded bg-white/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-bone">{skill.note}</span>}
+            </div>
           </div>
           <div>
             <p className="font-sans text-base font-semibold text-bone">{skill.name}</p>

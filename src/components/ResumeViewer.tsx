@@ -127,14 +127,19 @@ export function ResumeSheet() {
           <H>Education</H>
           {education.map((e, idx) => (
             <div key={`${e.school}-${idx}`} className="mb-4">
-              <div className="flex flex-wrap justify-between gap-x-3">
-                <p className="text-sm font-semibold text-bone">
-                  {e.school}, {e.place}
+              <div className="flex flex-wrap justify-between gap-x-3 items-center">
+                <p className="text-sm font-semibold text-bone flex items-center gap-2 flex-wrap">
+                  <span>{e.school}, {e.place}</span>
+                  {e.isCurrent && (
+                    <span className="rounded bg-red-500/20 text-red-300 border border-red-500/40 text-[9px] font-mono px-1.5 py-0.5 font-bold uppercase">
+                      Pursuing
+                    </span>
+                  )}
                 </p>
                 <p className="text-xs text-smoke">{e.period}</p>
               </div>
-              <p className="text-xs text-mist">
-                {e.degree} · <span className="text-bone/80">{e.score}</span>
+              <p className="text-xs text-mist mt-0.5">
+                {e.degree}{e.department ? ` (${e.department})` : ''} · <span className="text-bone/80">{e.score}</span>
               </p>
             </div>
           ))}
