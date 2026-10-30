@@ -111,15 +111,21 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const handlePublish = async () => {
     setConfirmConfig({
       isOpen: true,
-      title: 'Publish Live to Website?',
+      title: 'Publish Live to Website Worldwide?',
       message:
-        'This will immediately update all public-facing content on the portfolio for all visitors and synchronize with permanent storage. Are you ready to deploy live?',
+        'This will immediately update all public-facing content across all devices worldwide and commit directly to the live repository. Are you ready to deploy live?',
       onConfirm: async () => {
         setConfirmConfig((prev) => ({ ...prev, isOpen: false }));
-        showToast('Publishing...', 'Persisting changes to storage and source code...', 'info');
-        const success = await publish();
-        if (success) {
-          showToast('Published Live!', 'Your portfolio changes are now live and permanently saved!', 'success');
+        showToast('Publishing...', 'Saving changes and syncing live worldwide...', 'info');
+        const res = await publish((status) => {
+          showToast('Worldwide Sync', status, 'info');
+        });
+        if (res.success) {
+          if (res.cloudSynced) {
+            showToast('Published Worldwide! 🚀', 'Your updates are now live across all devices worldwide!', 'success');
+          } else {
+            showToast('Published Locally', 'Changes saved to this browser. Add GitHub token in Settings for 1-click live sync across all devices.', 'success');
+          }
         } else {
           showToast('Publish Failed', 'Failed to update live website data.', 'error');
         }

@@ -9,8 +9,14 @@ import {
   syncFromIndexedDB,
 } from '../services/storageService';
 import { syncToSupabase } from '../services/supabaseClient';
-import { fetchRemotePortfolioData } from '../services/githubSync';
+import { fetchRemotePortfolioData, getStoredGitHubConfig, syncPortfolioToGitHub } from '../services/githubSync';
 import type { PortfolioData } from '../types/portfolio';
+
+export interface PublishResult {
+  success: boolean;
+  cloudSynced: boolean;
+  message?: string;
+}
 
 interface PortfolioContextType {
   data: PortfolioData;
@@ -20,7 +26,7 @@ interface PortfolioContextType {
   isAdminOpen: boolean;
   setDraftData: React.Dispatch<React.SetStateAction<PortfolioData>>;
   saveDraft: () => boolean;
-  publish: () => Promise<boolean>;
+  publish: (onProgress?: (status: string) => void) => Promise<PublishResult>;
   resetToDefaults: () => void;
   toggleDraftPreview: () => void;
   openAdmin: () => void;
@@ -127,15 +133,37 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     return success;
   };
 
-  const publish = async (): Promise<boolean> => {
+  const publish = async (onProgress?: (status: string) => void): Promise<PublishResult> => {
     const success = await publishLive(draftData);
+    let cloudSynced = false;
+    let cloudMessage = '';
+
     if (success) {
       setPublishedData({ ...draftData });
       setHasUnsaved(false);
+
+      // Automatically sync to live GitHub repository across all devices worldwide
+      const ghConfig = getStoredGitHubConfig();
+      if (ghConfig.token?.trim()) {
+        try {
+          onProgress?.('Syncing live to GitHub repository worldwide...');
+          const ghRes = await syncPortfolioToGitHub(draftData, ghConfig, onProgress);
+          if (ghRes.ok) {
+            cloudSynced = true;
+            cloudMessage = ghRes.message;
+          } else {
+            cloudMessage = ghRes.message;
+          }
+        } catch (ghErr) {
+          console.warn('GitHub auto-sync warning:', ghErr);
+          cloudMessage = String(ghErr);
+        }
+      }
+
       // Sync to cloud Supabase if configured
       await syncToSupabase(draftData);
     }
-    return success;
+    return { success, cloudSynced, message: cloudMessage };
   };
 
   const resetToDefaults = () => {

@@ -1067,7 +1067,7 @@
   "siteSettings": {
     "siteTitle": "Harsh — The Series",
     "siteDescription": "Full-Stack Developer • AI / ML • Java. Every project is an Original.",
-    "ogImage": "",
+    "ogImage": "./assets/og-image.jpg",
     "themeColor": "#07070a",
     "copyrightText": "AN H-ORIGINAL // ALL RIGHTS RESERVED",
     "footerQuote": "TO BE CONTINUED…"
@@ -1086,6 +1086,6 @@
     "enableFilmGrain": true,
     "cursorStyle": "cinematic"
   },
-  "lastUpdated": "2026-10-30T17:23:13.150Z",
+  "lastUpdated": "2026-10-30T18:13:22.960Z",
   "version": 5
 }

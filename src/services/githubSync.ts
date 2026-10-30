@@ -211,28 +211,43 @@ export async function syncPortfolioToGitHub(
 
 /**
  * Dynamically fetches the latest published portfolio data across devices from the repository.
+ * Fetches from both the live GitHub raw repository and local build, selecting the newest data.
  * Works seamlessly without requiring any authentication token for public repositories.
  */
 export async function fetchRemotePortfolioData(): Promise<PortfolioData | null> {
+  const timestamp = Date.now();
   const urls = [
-    `./data/portfolio.json?_t=${Date.now()}`,
-    `${RAW_FALLBACK_URL}?_t=${Date.now()}`,
+    `${RAW_FALLBACK_URL}?_t=${timestamp}`,
+    `./data/portfolio.json?_t=${timestamp}`,
   ];
 
-  for (const url of urls) {
-    try {
-      const res = await fetch(url, { cache: 'no-store' });
-      if (res.ok) {
-        const json = await res.json();
-        if (json && json.profile && json.projects) {
-          return json as PortfolioData;
-        }
-      }
-    } catch {
-      // try next fallback
-    }
-  }
+  const candidates: PortfolioData[] = [];
 
-  return null;
+  await Promise.all(
+    urls.map(async (url) => {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.profile && json.projects) {
+            candidates.push(json as PortfolioData);
+          }
+        }
+      } catch {
+        // network or CORS error, ignore
+      }
+    })
+  );
+
+  if (candidates.length === 0) return null;
+
+  // Sort descending by lastUpdated so newest data is always chosen
+  candidates.sort((a, b) => {
+    const timeA = a.lastUpdated ? new Date(a.lastUpdated).getTime() : 0;
+    const timeB = b.lastUpdated ? new Date(b.lastUpdated).getTime() : 0;
+    return timeB - timeA;
+  });
+
+  return candidates[0];
 }
 
