@@ -25,6 +25,17 @@ export function generatePortfolioSourceCode(data: PortfolioData): string {
  */
 
 export type Palette = { from: string; via: string; to: string; accent: string };
+export type ProfileId = 'harsh' | 'sushmita' | 'recruiter' | 'developer' | 'creative';
+export type SectionId = 'about' | 'journey' | 'originals' | 'picks' | 'skills' | 'moments' | 'story';
+export type Episode = {
+  code: string;
+  title: string;
+  description: string;
+  tags: string[];
+  runtime: string;
+  palette: Palette;
+};
+export type ViewerProfile = { id: ProfileId; name: string; blurb: string; color: string; order: SectionId[] };
 
 export const profile = ${JSON.stringify(p, null, 2)};
 
@@ -68,7 +79,7 @@ export const topPicks = ${JSON.stringify(picks, null, 2)};
 
 export const introSlides = ${JSON.stringify(slides, null, 2)};
 
-export const viewerProfiles = ${JSON.stringify(profiles, null, 2)};
+export const viewerProfiles: ViewerProfile[] = ${JSON.stringify(profiles, null, 2)};
 
 const violet: Palette = { from: '#1a0b2e', via: '#3b1261', to: '#09070a', accent: '#c084fc' };
 const amber: Palette = { from: '#2e1505', via: '#6e380f', to: '#09070a', accent: '#ffb547' };
@@ -76,7 +87,7 @@ const crimson: Palette = { from: '#24060b', via: '#6e0d1d', to: '#09070a', accen
 const jade: Palette = { from: '#062017', via: '#0f523c', to: '#09070a', accent: '#46e3a8' };
 const ocean: Palette = { from: '#071829', via: '#113e66', to: '#09070a', accent: '#4cc9ff' };
 
-export const sectionMeta = {
+export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: string; palette: Palette }> = {
   about: { nav: 'About', card: 'About Me', meta: 'The Pilot • Education & training', palette: violet },
   journey: { nav: 'Journey', card: 'My Journey', meta: \`\${seasons.length} Seasons • \${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes\`, palette: amber },
   originals: { nav: 'Originals', card: 'My Projects', meta: \`\${projects.length} Originals • 2026\`, palette: crimson },
