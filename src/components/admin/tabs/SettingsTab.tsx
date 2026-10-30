@@ -1,14 +1,33 @@
 import { useRef, useState } from 'react';
-import { Download, RotateCcw, Settings, Upload, KeyRound, ShieldCheck } from 'lucide-react';
-import { exportBackup, importBackup } from '../../../services/storageService';
-import { updateAdminCredentials, hasCustomCredentials, resetAdminCredentialsToDefault } from '../../../services/authService';
+import {
+  Code2,
+  Download,
+  FileCode,
+  KeyRound,
+  RotateCcw,
+  Save,
+  Settings,
+  ShieldCheck,
+  Upload,
+} from 'lucide-react';
+import {
+  exportBackup,
+  exportSourceCodeFile,
+  importBackup,
+  saveToSourceCode,
+} from '../../../services/storageService';
+import {
+  updateAdminCredentials,
+  hasCustomCredentials,
+  resetAdminCredentialsToDefault,
+} from '../../../services/authService';
 import type { PortfolioData, SiteSettings } from '../../../types/portfolio';
 
 interface SettingsTabProps {
   data: PortfolioData;
   onChange: (updater: (prev: PortfolioData) => PortfolioData) => void;
   onShowConfirm: (title: string, message: string, onConfirm: () => void) => void;
-  onShowToast: (title: string, message: string, type: 'success' | 'error') => void;
+  onShowToast: (title: string, message: string, type: 'success' | 'error' | 'info') => void;
 }
 
 export default function SettingsTab({
@@ -22,6 +41,7 @@ export default function SettingsTab({
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCustomAuth, setIsCustomAuth] = useState(() => hasCustomCredentials());
+  const [savingSource, setSavingSource] = useState(false);
 
   const updateSetting = (key: keyof SiteSettings, val: string) => {
     onChange((prev) => ({
@@ -36,6 +56,27 @@ export default function SettingsTab({
   const handleExport = () => {
     exportBackup(data);
     onShowToast('Backup Exported', 'Full portfolio JSON backup downloaded to your computer.', 'success');
+  };
+
+  const handleExportSource = () => {
+    exportSourceCodeFile(data);
+    onShowToast('Source Code Downloaded', 'Downloaded portfolio.ts file. Place it in src/data/ to commit permanently.', 'success');
+  };
+
+  const handleSaveToSource = async () => {
+    setSavingSource(true);
+    try {
+      const res = await saveToSourceCode(data);
+      if (res.success) {
+        onShowToast('Source Code Saved!', 'Changes permanently written directly into src/data/portfolio.ts on disk!', 'success');
+      } else {
+        onShowToast('Static Hosting Notice', `${res.message}. Use "Download portfolio.ts" to save into your repo.`, 'info');
+      }
+    } catch (err: unknown) {
+      onShowToast('Sync Notice', (err as Error).message, 'error');
+    } finally {
+      setSavingSource(false);
+    }
   };
 
   const handleImportFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +161,7 @@ export default function SettingsTab({
           <span>Global Website & SEO Configuration</span>
         </h3>
         <p className="text-xs text-zinc-500 mt-0.5">
-          Metadata, social sharing previews, copyright text, and full backup management.
+          Metadata, social sharing previews, copyright text, permanent source code synchronization, and backups.
         </p>
       </div>
 
@@ -196,6 +237,45 @@ export default function SettingsTab({
               className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-['Bebas_Neue',sans-serif] tracking-wider text-lg"
             />
           </div>
+        </div>
+      </div>
+
+      {/* Permanent Source Code Sync (NEW) */}
+      <div className="rounded-2xl bg-zinc-900/60 border border-emerald-500/30 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Code2 className="w-4 h-4 text-emerald-400" />
+            <h4 className="text-xs font-mono uppercase text-zinc-200">
+              Permanent Source Code Synchronization (`src/data/portfolio.ts`)
+            </h4>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300">
+            Persistent On Disk
+          </span>
+        </div>
+        <p className="text-xs text-zinc-400 leading-relaxed">
+          Ensure your changes never revert on refresh. Write all portfolio details, photos, projects, and themes directly into the actual repository source code file (<code className="text-zinc-200 font-mono">src/data/portfolio.ts</code>) or download the updated source file.
+        </p>
+
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <button
+            type="button"
+            onClick={handleSaveToSource}
+            disabled={savingSource}
+            className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium flex items-center gap-2 transition cursor-pointer disabled:opacity-50"
+          >
+            <Save className="w-4 h-4" />
+            <span>{savingSource ? 'Writing to Disk...' : 'Save Directly to Source Code (portfolio.ts)'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleExportSource}
+            className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-2 transition cursor-pointer"
+          >
+            <FileCode className="w-4 h-4 text-emerald-400" />
+            <span>Download Updated `portfolio.ts`</span>
+          </button>
         </div>
       </div>
 
@@ -327,4 +407,3 @@ export default function SettingsTab({
     </div>
   );
 }
-

@@ -6,6 +6,7 @@ import {
   publishLive,
   resetPortfolioDefaults,
   saveDraftData,
+  syncFromIndexedDB,
 } from '../services/storageService';
 import { syncToSupabase } from '../services/supabaseClient';
 import type { PortfolioData } from '../types/portfolio';
@@ -44,6 +45,26 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     setDraftData(draft);
     setHasUnsaved(hasUnpublishedChanges());
   };
+
+  // Restore redundant state from IndexedDB on initial mount
+  useEffect(() => {
+    syncFromIndexedDB().then((synced) => {
+      if (synced) {
+        setPublishedData(synced.published);
+        setDraftData(synced.draft);
+        setHasUnsaved(hasUnpublishedChanges());
+      }
+    });
+  }, []);
+
+  // Real-time automatic persistence: debounced save so user edits are NEVER lost on page refresh
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      saveDraftData(draftData);
+      setHasUnsaved(hasUnpublishedChanges());
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [draftData]);
 
   // Listen for admin shortcut keys: Ctrl + Shift + A or Ctrl + Alt + A or Cmd + Shift + A
   useEffect(() => {
@@ -94,9 +115,9 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   };
 
   const publish = async (): Promise<boolean> => {
-    const success = publishLive(draftData);
+    const success = await publishLive(draftData);
     if (success) {
-      setPublishedData(draftData);
+      setPublishedData({ ...draftData });
       setHasUnsaved(false);
       // Sync to cloud Supabase if configured
       await syncToSupabase(draftData);

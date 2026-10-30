@@ -113,11 +113,13 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       isOpen: true,
       title: 'Publish Live to Website?',
       message:
-        'This will immediately update all public-facing content on the portfolio for all visitors. Are you ready to deploy these changes live?',
+        'This will immediately update all public-facing content on the portfolio for all visitors and synchronize with permanent storage. Are you ready to deploy live?',
       onConfirm: async () => {
+        setConfirmConfig((prev) => ({ ...prev, isOpen: false }));
+        showToast('Publishing...', 'Persisting changes to storage and source code...', 'info');
         const success = await publish();
         if (success) {
-          showToast('Published Live!', 'Your portfolio has been updated live for all visitors.', 'success');
+          showToast('Published Live!', 'Your portfolio changes are now live and permanently saved!', 'success');
         } else {
           showToast('Publish Failed', 'Failed to update live website data.', 'error');
         }
@@ -131,6 +133,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       title: 'Log Out of Admin Terminal?',
       message: 'You will need to enter your admin security key to return to this dashboard.',
       onConfirm: () => {
+        setConfirmConfig((prev) => ({ ...prev, isOpen: false }));
         logoutAdmin();
         onLogout();
       },

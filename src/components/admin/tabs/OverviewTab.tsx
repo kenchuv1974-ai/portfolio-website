@@ -2,6 +2,7 @@ import {
   Award,
   CheckCircle2,
   Download,
+  FileCode,
   FolderGit2,
   GraduationCap,
   Layers,
@@ -11,6 +12,7 @@ import {
   Upload,
   User,
 } from 'lucide-react';
+import { exportSourceCodeFile } from '../../../services/storageService';
 import type { PortfolioData } from '../../../types/portfolio';
 
 interface OverviewTabProps {
@@ -198,6 +200,15 @@ export default function OverviewTab({
           >
             <Download className="w-3.5 h-3.5" />
             <span>Export Backup (JSON)</span>
+          </button>
+
+          <button
+            onClick={() => exportSourceCodeFile(data)}
+            className="px-4 py-2 rounded-lg bg-emerald-950/40 border border-emerald-500/40 hover:bg-emerald-900/40 text-emerald-300 text-xs font-medium flex items-center gap-2 transition cursor-pointer"
+            title="Download the actual portfolio.ts source code file"
+          >
+            <FileCode className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Download Source Code (portfolio.ts)</span>
           </button>
 
           <button

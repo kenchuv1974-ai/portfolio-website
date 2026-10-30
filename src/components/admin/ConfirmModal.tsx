@@ -23,6 +23,12 @@ export default function ConfirmModal({
 }: ConfirmModalProps) {
   if (!isOpen) return null;
 
+  const handleConfirm = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onCancel(); // Always dismiss modal immediately
+    onConfirm();
+  };
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4">
@@ -65,8 +71,8 @@ export default function ConfirmModal({
             </button>
             <button
               type="button"
-              onClick={onConfirm}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition cursor-pointer ${
+              onClick={handleConfirm}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition cursor-pointer active:scale-95 ${
                 isDestructive
                   ? 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-900/30'
                   : 'bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-900/30'

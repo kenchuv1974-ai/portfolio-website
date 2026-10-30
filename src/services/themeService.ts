@@ -170,3 +170,4 @@ export function applyThemeToDocument(theme?: ThemeSettings): void {
     metaTheme.setAttribute('content', t.backgroundColor);
   }
 }
+
