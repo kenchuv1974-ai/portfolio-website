@@ -235,3 +235,4 @@ export async function fetchRemotePortfolioData(): Promise<PortfolioData | null> 
 
   return null;
 }
+

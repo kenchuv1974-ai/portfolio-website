@@ -8,3 +8,4 @@ const target = path.join(outDir, 'portfolio.json');
 
 fs.writeFileSync(target, JSON.stringify(initialDefaultData, null, 2), 'utf-8');
 console.log('✓ Successfully generated', target);
+
