@@ -1,4 +1,4 @@
-# SUSHMITA — THE SERIES (Full Editable Portfolio CMS)
+# HARSH — THE SERIES (Full Editable Portfolio CMS)
 
 A cinematic, streaming-inspired portfolio with a **Secure Admin CMS Dashboard** allowing full real-time content management without touching source code, while preserving 100% of the public website's visual identity, Framer Motion animations, Lenis smooth scrolling, and responsive layouts.
 
