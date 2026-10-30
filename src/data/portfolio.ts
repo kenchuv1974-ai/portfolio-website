@@ -28,7 +28,7 @@ export const profile = {
     "AI / ML",
     "Java"
   ],
-  "intro": "A B.Tech Artificial Intelligence & Machine Learning student (CGPA 9.10) and full-stack developer building AI-powered platforms, payment systems and multi-tenant SaaS with Java, Python, React, Node.js and Docker.",
+  "intro": "A B.E",
   "location": "Surampalem, Andhra Pradesh",
   "email": "kenchuv1974@gmail.com",
   "links": {
