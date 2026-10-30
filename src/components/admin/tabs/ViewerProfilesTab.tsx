@@ -18,7 +18,7 @@ const SECTION_LABELS: Record<SectionId, string> = {
 };
 
 export default function ViewerProfilesTab({ data, onChange }: ViewerProfilesTabProps) {
-  const [activeProfileId, setActiveProfileId] = useState<string>(data.viewerProfiles[0]?.id || 'sushmita');
+  const [activeProfileId, setActiveProfileId] = useState<string>(data.viewerProfiles[0]?.id || 'harsh');
 
   const profiles = data.viewerProfiles;
   const currentProfile = profiles.find((p) => p.id === activeProfileId) || profiles[0];

@@ -6,7 +6,7 @@ import { EASE, Magnetic } from './fx';
 
 /**
  * The signature moment:
- * black → studio card → SUSHMITA → THE SERIES → portrait reveal → role → ▶ PLAY
+ * black → studio card → HARSHITH → THE SERIES → portrait reveal → role → ▶ PLAY
  */
 const TIMELINE = [
   { at: 300, beat: 1 }, // studio card

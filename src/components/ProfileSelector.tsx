@@ -10,7 +10,7 @@ export function ProfileAvatar({ id, size = 'lg' }: { id: ProfileId; size?: 'sm' 
   const p = viewerProfiles.find((v) => v.id === id) || viewerProfiles[0];
   const box = size === 'lg' ? 'h-24 w-24 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-xl' : 'h-8 w-8 rounded-md';
 
-  if (id === 'sushmita' || id === viewerProfiles[0]?.id) {
+  if (id === 'harsh' || id === 'sushmita' || id === viewerProfiles[0]?.id) {
     return (
       <span className={`relative block overflow-hidden ${box}`} style={{ background: 'radial-gradient(circle at 50% 30%, #7a0f24, #1a0509)' }}>
         <img
@@ -40,7 +40,7 @@ export default function ProfileSelector({ onPick }: { onPick: (id: ProfileId) =>
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onPick(viewerProfiles[0]?.id || 'sushmita');
+      if (e.key === 'Escape') onPick(viewerProfiles[0]?.id || 'harsh');
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);

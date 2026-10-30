@@ -101,7 +101,7 @@ export type IntroSlide = {
   chips?: string[];
 };
 
-export type ProfileId = 'sushmita' | 'recruiter' | 'developer' | 'creative';
+export type ProfileId = 'harsh' | 'sushmita' | 'recruiter' | 'developer' | 'creative';
 export type SectionId = 'about' | 'journey' | 'originals' | 'picks' | 'skills' | 'moments' | 'story';
 
 export type ViewerProfile = {

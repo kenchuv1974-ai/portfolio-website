@@ -4,7 +4,7 @@
  * for high-resolution images, documents, and complete portfolio state.
  */
 
-const DB_NAME = 'portfolio_series_db_v4';
+const DB_NAME = 'portfolio_series_db_v5';
 const DB_VERSION = 1;
 const STORE_NAME = 'portfolio_store';
 
@@ -71,3 +71,4 @@ export async function idbRemove(key: string): Promise<boolean> {
     return false;
   }
 }
+

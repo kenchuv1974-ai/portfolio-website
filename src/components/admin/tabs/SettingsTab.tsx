@@ -220,7 +220,7 @@ export default function SettingsTab({
               type="text"
               value={s.copyrightText || ''}
               onChange={(e) => updateSetting('copyrightText', e.target.value)}
-              placeholder="A DASARI ORIGINAL // ALL RIGHTS RESERVED"
+              placeholder="AN H-ORIGINAL // ALL RIGHTS RESERVED"
               className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-mono text-xs"
             />
           </div>

@@ -18,9 +18,9 @@ import { idbSet, idbGet, idbRemove } from './dbStorage';
 import { generatePortfolioSourceCode } from './sourceCodeGen';
 import type { PortfolioData } from '../types/portfolio';
 
-const STORAGE_PUBLISHED_KEY = 'portfolio_series_published_v4';
-const STORAGE_DRAFT_KEY = 'portfolio_series_draft_v4';
-const STORAGE_MEDIA_CACHE_KEY = 'portfolio_series_media_v4';
+const STORAGE_PUBLISHED_KEY = 'portfolio_series_published_v5';
+const STORAGE_DRAFT_KEY = 'portfolio_series_draft_v5';
+const STORAGE_MEDIA_CACHE_KEY = 'portfolio_series_media_v5';
 
 export const initialDefaultData: PortfolioData = {
   profile: {
@@ -88,7 +88,7 @@ export const initialDefaultData: PortfolioData = {
   },
   themeSettings: { ...defaultThemeSettings },
   lastUpdated: new Date().toISOString(),
-  version: 4,
+  version: 5,
 };
 
 /**

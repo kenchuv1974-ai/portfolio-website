@@ -104,7 +104,7 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
       ...prev,
       profile: {
         ...prev.profile,
-        resumePdf: './assets/Sushmita_Dasari_Resume.pdf',
+        resumePdf: './assets/Harshith_Resume.pdf',
       },
     }));
     onShowToast('Resume Restored', 'Reverted back to original bundle resume PDF.', 'success');
@@ -411,7 +411,7 @@ export default function ProfileTab({ data, onChange, onShowToast }: ProfileTabPr
               type="text"
               value={p.resumePdf || ''}
               onChange={(e) => updateField('resumePdf', e.target.value)}
-              placeholder="e.g. ./assets/Sushmita_Dasari_Resume.pdf or https://drive.google.com/..."
+              placeholder="e.g. ./assets/Harshith_Resume.pdf or https://drive.google.com/..."
               className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-xs text-zinc-200 focus:outline-none focus:border-red-500 font-mono"
             />
           </div>
