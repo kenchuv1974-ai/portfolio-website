@@ -49,9 +49,7 @@ The portfolio includes an embedded, high-security admin terminal accessible from
 - **Keyboard Shortcut:** Press `Ctrl + Shift + A` (or `Ctrl + Alt + A`).
 - **Navigation Shortcuts:** Click the **⚡ Admin** button located in the top navigation bar or the footer console trigger.
 
-### Default Administrator Credentials
-- **Username / Operator:** `harsh`
-- **Password:** `Harsh1512`
+
 
 > **Security Note:** Authentication uses cryptographic client/server-compatible SHA-256 salted hashing with brute-force rate-limiting (max 5 failed attempts locks the terminal for 15 minutes) and signed session expiration tokens (24 hours).
 
