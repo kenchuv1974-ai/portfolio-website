@@ -9,6 +9,7 @@ export interface GitHubSyncConfig {
 }
 
 const GITHUB_CONFIG_KEY = 'portfolio_github_sync_config_v1';
+const GITHUB_API_RAW_URL = 'https://api.github.com/repos/kenchuv1974-ai/portfolio-website/contents/public/data/portfolio.json';
 const RAW_FALLBACK_URL = 'https://raw.githubusercontent.com/kenchuv1974-ai/portfolio-website/main/public/data/portfolio.json';
 
 export const defaultGitHubConfig: GitHubSyncConfig = {
@@ -216,38 +217,42 @@ export async function syncPortfolioToGitHub(
  */
 export async function fetchRemotePortfolioData(): Promise<PortfolioData | null> {
   const timestamp = Date.now();
-  const urls = [
+
+  // 1. Try real-time GitHub REST API first (0-second caching delay, bypasses Fastly CDN)
+  try {
+    const apiRes = await fetch(`${GITHUB_API_RAW_URL}?_t=${timestamp}`, {
+      headers: { Accept: 'application/vnd.github.v3.raw' },
+      cache: 'no-store',
+    });
+    if (apiRes.ok) {
+      const json = await apiRes.json();
+      if (json && json.profile && json.projects) {
+        return json as PortfolioData;
+      }
+    }
+  } catch {
+    // continue to fallbacks
+  }
+
+  // 2. Try raw fallback and local static JSON
+  const fallbacks = [
     `${RAW_FALLBACK_URL}?_t=${timestamp}`,
     `./data/portfolio.json?_t=${timestamp}`,
   ];
 
-  const candidates: PortfolioData[] = [];
-
-  await Promise.all(
-    urls.map(async (url) => {
-      try {
-        const res = await fetch(url, { cache: 'no-store' });
-        if (res.ok) {
-          const json = await res.json();
-          if (json && json.profile && json.projects) {
-            candidates.push(json as PortfolioData);
-          }
+  for (const url of fallbacks) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        if (json && json.profile && json.projects) {
+          return json as PortfolioData;
         }
-      } catch {
-        // network or CORS error, ignore
       }
-    })
-  );
+    } catch {
+      // try next fallback
+    }
+  }
 
-  if (candidates.length === 0) return null;
-
-  // Sort descending by lastUpdated so newest data is always chosen
-  candidates.sort((a, b) => {
-    const timeA = a.lastUpdated ? new Date(a.lastUpdated).getTime() : 0;
-    const timeB = b.lastUpdated ? new Date(b.lastUpdated).getTime() : 0;
-    return timeB - timeA;
-  });
-
-  return candidates[0];
+  return null;
 }
-

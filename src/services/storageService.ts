@@ -87,7 +87,7 @@ export const initialDefaultData: PortfolioData = {
     footerQuote: 'TO BE CONTINUED…',
   },
   themeSettings: { ...defaultThemeSettings },
-  lastUpdated: new Date().toISOString(),
+  lastUpdated: '',
   version: 5,
 };
 

@@ -27,7 +27,7 @@
     "interests": [
       "Machine Learning"
     ],
-    "availabilityStatus": "EXCITED TO LEARN"
+    "availabilityStatus": "Open to Opportunities"
   },
   "education": [
     {
@@ -1065,7 +1065,7 @@
   "siteSettings": {
     "siteTitle": "Harsh — The Series",
     "siteDescription": "Full-Stack Developer • AI / ML • Java. Every project is an Original.",
-    "ogImage": "",
+    "ogImage": "./assets/og-image.jpg",
     "themeColor": "#07070a",
     "copyrightText": "AN H-ORIGINAL // ALL RIGHTS RESERVED",
     "footerQuote": "TO BE CONTINUED…"
@@ -1084,6 +1084,6 @@
     "enableFilmGrain": true,
     "cursorStyle": "cinematic"
   },
-  "lastUpdated": "2026-10-30T18:32:39.743Z",
+  "lastUpdated": "2026-10-30T18:45:10.192Z",
   "version": 5
 }

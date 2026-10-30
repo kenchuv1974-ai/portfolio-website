@@ -67,7 +67,9 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     fetchRemotePortfolioData().then((remoteData) => {
       if (remoteData && remoteData.profile) {
         setPublishedData((prev) => {
-          if (!prev.lastUpdated || (remoteData.lastUpdated && remoteData.lastUpdated > prev.lastUpdated)) {
+          const remoteTime = remoteData.lastUpdated ? new Date(remoteData.lastUpdated).getTime() : 0;
+          const prevTime = prev.lastUpdated ? new Date(prev.lastUpdated).getTime() : 0;
+          if (!prevTime || remoteTime >= prevTime) {
             return remoteData;
           }
           return prev;
