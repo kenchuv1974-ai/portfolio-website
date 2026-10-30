@@ -36,4 +36,5 @@ echo   SUCCESS! YOUR PORTFOLIO IS NOW LIVE ACROSS ALL COMPUTERS!
 echo   Visit: https://kenchuv1974-ai.github.io/portfolio-website/
 echo ============================================================
 echo.
-timeout /t 5
+ping -n 4 127.0.0.1 >nul
+exit /b 0
