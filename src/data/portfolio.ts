@@ -28,8 +28,8 @@ export const profile = {
     "AI / ML",
     "Java"
   ],
-  "intro": "A B.E",
-  "location": "Surampalem, Andhra Pradesh",
+  "intro": "A B.E Student at BGSCET",
+  "location": "Mahalakshmi , Bengaluru",
   "email": "kenchuv1974@gmail.com",
   "links": {
     "linkedin": "https://www.linkedin.com",
@@ -42,11 +42,9 @@ export const profile = {
     "alt": "Portrait of Harshith V"
   },
   "interests": [
-    "System Design",
-    "Cloud Computing (AWS)",
     "Machine Learning"
   ],
-  "availabilityStatus": "Open to Opportunities"
+  "availabilityStatus": "EXCITED TO LEARN"
 };
 
 export const education = [
