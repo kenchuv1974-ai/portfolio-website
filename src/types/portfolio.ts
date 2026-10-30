@@ -148,6 +148,23 @@ export type SiteSettings = {
   footerQuote?: string;
 };
 
+export type ThemePreset = 'crimson' | 'violet' | 'emerald' | 'cyan' | 'amber' | 'slate';
+
+export type ThemeSettings = {
+  preset: ThemePreset;
+  primaryColor: string;       // Accent / Brand (e.g. #e5132b)
+  primaryColorHover: string;  // Accent light/glow (e.g. #ff3d5a)
+  backgroundColor: string;    // Canvas background (e.g. #07070a)
+  cardBackground: string;     // Card surface (e.g. #0e0e13)
+  cardBorderColor: string;    // Card borders (e.g. #16161d)
+  textColor: string;          // Main text (e.g. #f4f1ec)
+  textMutedColor: string;     // Muted text (e.g. #a7a6ad)
+  borderRadius: 'sharp' | 'rounded' | 'soft';
+  glowIntensity: 'subtle' | 'balanced' | 'high';
+  enableFilmGrain: boolean;
+  cursorStyle: 'cinematic' | 'minimal' | 'system';
+};
+
 export type PortfolioData = {
   profile: ProfileData;
   education: Education[];
@@ -162,6 +179,7 @@ export type PortfolioData = {
   introSlides: IntroSlide[];
   viewerProfiles: ViewerProfile[];
   siteSettings: SiteSettings;
+  themeSettings?: ThemeSettings;
   lastUpdated?: string;
   version?: number;
 };

@@ -3,6 +3,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { type ProfileId, type Project, type SectionId } from './types/portfolio';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { SmoothScrollProvider, useSmoothScroll } from './hooks/smoothScroll';
+import { applyThemeToDocument } from './services/themeService';
 import CustomCursor from './components/CustomCursor';
 import OpeningSequence from './components/OpeningSequence';
 import ProfileSelector from './components/ProfileSelector';
@@ -65,6 +66,11 @@ function Series() {
 
   const activeProfile = viewerProfiles.find((p) => p.id === profileId) || viewerProfiles[0];
   const order = activeProfile.order;
+
+  // Dynamically synchronize theme settings across document :root
+  useEffect(() => {
+    applyThemeToDocument(data.themeSettings);
+  }, [data.themeSettings]);
 
   // Dynamically synchronize browser tab title with CMS siteTitle and profile name
   useEffect(() => {

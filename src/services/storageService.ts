@@ -12,6 +12,7 @@ import {
   topPicks as defaultTopPicks,
   viewerProfiles as defaultViewerProfiles,
 } from '../data/portfolio';
+import { defaultThemeSettings } from './themeService';
 import type { PortfolioData } from '../types/portfolio';
 
 const STORAGE_PUBLISHED_KEY = 'portfolio_series_published_v4';
@@ -82,6 +83,7 @@ export const initialDefaultData: PortfolioData = {
     copyrightText: 'AN H-ORIGINAL // ALL RIGHTS RESERVED',
     footerQuote: 'TO BE CONTINUED…',
   },
+  themeSettings: { ...defaultThemeSettings },
   lastUpdated: new Date().toISOString(),
   version: 4,
 };
@@ -99,6 +101,7 @@ export function getPublishedData(): PortfolioData {
       ...parsed,
       profile: { ...initialDefaultData.profile, ...(parsed.profile || {}) },
       siteSettings: { ...initialDefaultData.siteSettings, ...(parsed.siteSettings || {}) },
+      themeSettings: parsed.themeSettings ? { ...defaultThemeSettings, ...parsed.themeSettings } : { ...defaultThemeSettings },
     };
   } catch (err) {
     console.error('Failed reading published portfolio data:', err);
@@ -121,6 +124,7 @@ export function getDraftData(): PortfolioData {
       ...parsed,
       profile: { ...initialDefaultData.profile, ...(parsed.profile || {}) },
       siteSettings: { ...initialDefaultData.siteSettings, ...(parsed.siteSettings || {}) },
+      themeSettings: parsed.themeSettings ? { ...defaultThemeSettings, ...parsed.themeSettings } : { ...defaultThemeSettings },
     };
   } catch (err) {
     console.error('Failed reading draft data:', err);
@@ -247,6 +251,7 @@ export function importBackup(jsonString: string): { success: boolean; data?: Por
       ...parsed,
       profile: { ...initialDefaultData.profile, ...parsed.profile },
       siteSettings: { ...initialDefaultData.siteSettings, ...(parsed.siteSettings || {}) },
+      themeSettings: parsed.themeSettings ? { ...defaultThemeSettings, ...parsed.themeSettings } : { ...defaultThemeSettings },
       lastUpdated: new Date().toISOString(),
     };
     return { success: true, data: merged };

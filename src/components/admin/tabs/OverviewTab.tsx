@@ -5,6 +5,7 @@ import {
   FolderGit2,
   GraduationCap,
   Layers,
+  Palette,
   RotateCcw,
   Sparkles,
   Upload,
@@ -130,7 +131,7 @@ export default function OverviewTab({
         <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-3">
           Quick Content Sections
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <button
             onClick={() => onNavigateTab('profile')}
             className="flex items-center gap-3 p-3.5 rounded-xl bg-zinc-900/40 border border-zinc-800/80 hover:bg-zinc-800/50 text-left transition cursor-pointer"
@@ -140,7 +141,20 @@ export default function OverviewTab({
             </div>
             <div>
               <div className="text-sm font-semibold text-zinc-100">Hero & Profile</div>
-              <div className="text-xs text-zinc-500">Name, headlines, photo & resume</div>
+              <div className="text-xs text-zinc-500">Name & headlines</div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => onNavigateTab('theme')}
+            className="flex items-center gap-3 p-3.5 rounded-xl bg-zinc-900/40 border border-red-500/30 hover:bg-zinc-800/50 text-left transition cursor-pointer"
+          >
+            <div className="w-9 h-9 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
+              <Palette className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold text-zinc-100">UI/UX & Colors</div>
+              <div className="text-xs text-zinc-500">Theme, colors & cursor</div>
             </div>
           </button>
 
@@ -152,8 +166,8 @@ export default function OverviewTab({
               <FolderGit2 className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-sm font-semibold text-zinc-100">Originals (Projects)</div>
-              <div className="text-xs text-zinc-500">Add, edit, metrics & code links</div>
+              <div className="text-sm font-semibold text-zinc-100">Originals</div>
+              <div className="text-xs text-zinc-500">Add & edit projects</div>
             </div>
           </button>
 
@@ -166,7 +180,7 @@ export default function OverviewTab({
             </div>
             <div>
               <div className="text-sm font-semibold text-zinc-100">Achievements</div>
-              <div className="text-xs text-zinc-500">Awards, ranks & competitions</div>
+              <div className="text-xs text-zinc-500">Awards & ranks</div>
             </div>
           </button>
         </div>

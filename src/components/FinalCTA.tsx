@@ -25,7 +25,14 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
 
   return (
     <section id="contact" ref={ref} className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center">
-      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_60%,rgba(229,19,43,0.18),transparent_70%)]" />
+      <div
+        aria-hidden
+        className="absolute inset-0 transition-opacity duration-700 pointer-events-none"
+        style={{
+          background: 'radial-gradient(60% 50% at 50% 60%, var(--color-crimson-2), transparent 70%)',
+          opacity: 'calc(var(--theme-glow-alpha, 0.45) * 0.45)',
+        }}
+      />
       <Particles count={36} />
 
       <motion.p
@@ -69,8 +76,9 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
                 target={c.href.startsWith('http') ? '_blank' : undefined}
                 rel={c.href.startsWith('http') ? 'noreferrer' : undefined}
                 data-cursor={c.cursor}
-                className={`flex min-h-12 items-center gap-2 rounded-full px-7 text-sm font-bold tracking-[0.12em] transition cursor-pointer ${
-                  c.primary ? 'bg-crimson text-white shadow-[0_0_50px_rgba(229,19,43,0.5)] hover:bg-crimson-2' : 'border border-white/25 text-bone hover:border-bone hover:bg-white/10'
+                style={c.primary ? { boxShadow: '0 0 50px var(--color-crimson)' } : undefined}
+                className={`flex min-h-12 items-center gap-2 rounded-full px-7 text-sm font-bold tracking-[0.12em] transition cursor-pointer active:scale-95 ${
+                  c.primary ? 'bg-crimson text-white hover:bg-crimson-2' : 'border border-white/25 text-bone hover:border-bone hover:bg-white/10'
                 }`}
               >
                 {c.primary && <span>▶</span>}
@@ -83,10 +91,10 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
       </motion.div>
 
       <div className="relative mt-16 flex flex-wrap justify-center gap-6 text-xs font-semibold tracking-[0.24em] text-smoke">
-        <button type="button" onClick={() => scrollTo(0, { offset: 0 })} className="hover:text-bone cursor-pointer">
+        <button type="button" onClick={() => scrollTo(0, { offset: 0 })} className="hover:text-bone cursor-pointer transition">
           ↺ WATCH AGAIN
         </button>
-        <button type="button" onClick={onReplay} className="hover:text-bone cursor-pointer">
+        <button type="button" onClick={onReplay} className="hover:text-bone cursor-pointer transition">
           ▶ REPLAY OPENING
         </button>
         <button

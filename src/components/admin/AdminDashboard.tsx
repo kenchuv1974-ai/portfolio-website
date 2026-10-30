@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  Palette,
   PlaySquare,
   Save,
   Send,
@@ -36,6 +37,7 @@ import ProjectsTab from './tabs/ProjectsTab';
 import SeasonsTab from './tabs/SeasonsTab';
 import SettingsTab from './tabs/SettingsTab';
 import SkillsTab from './tabs/SkillsTab';
+import ThemeTab from './tabs/ThemeTab';
 import TopPicksTab from './tabs/TopPicksTab';
 import ViewerProfilesTab from './tabs/ViewerProfilesTab';
 import ToastNotification, { type ToastMessage } from './ToastNotification';
@@ -43,6 +45,7 @@ import ToastNotification, { type ToastMessage } from './ToastNotification';
 const NAV_ITEMS = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
   { id: 'profile', label: 'Profile & Hero', icon: User },
+  { id: 'theme', label: 'UI / UX & Colors', icon: Palette },
   { id: 'projects', label: 'Originals (Projects)', icon: FolderGit2 },
   { id: 'achievements', label: 'Achievements', icon: Award },
   { id: 'certifications', label: 'Certifications', icon: Award },
@@ -99,52 +102,60 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const handleSaveDraft = () => {
     const success = saveDraft();
     if (success) {
-      showToast('Draft Saved', 'Your changes have been saved to draft storage.', 'success');
+      showToast('Draft Saved', 'All changes have been saved to draft storage.', 'success');
     } else {
-      showToast('Error', 'Failed to save draft changes.', 'error');
+      showToast('Save Failed', 'Unable to persist draft data to local storage.', 'error');
     }
   };
 
   const handlePublish = async () => {
-    const success = await publish();
-    if (success) {
-      showToast(
-        'Published Live!',
-        'All changes are now active across your public portfolio website.',
-        'success'
-      );
-    } else {
-      showToast('Publish Error', 'Failed to publish changes to live site.', 'error');
-    }
+    setConfirmConfig({
+      isOpen: true,
+      title: 'Publish Live to Website?',
+      message:
+        'This will immediately update all public-facing content on the portfolio for all visitors. Are you ready to deploy these changes live?',
+      onConfirm: async () => {
+        const success = await publish();
+        if (success) {
+          showToast('Published Live!', 'Your portfolio has been updated live for all visitors.', 'success');
+        } else {
+          showToast('Publish Failed', 'Failed to update live website data.', 'error');
+        }
+      },
+    });
   };
 
   const handleLogout = () => {
-    logoutAdmin();
-    onLogout();
+    setConfirmConfig({
+      isOpen: true,
+      title: 'Log Out of Admin Terminal?',
+      message: 'You will need to enter your admin security key to return to this dashboard.',
+      onConfirm: () => {
+        logoutAdmin();
+        onLogout();
+      },
+    });
   };
 
   return (
-    <div className="fixed inset-0 z-[990] flex flex-col bg-[#050408] text-zinc-100 overflow-hidden font-['Inter',sans-serif]">
+    <div className="fixed inset-0 z-[998] flex flex-col bg-zinc-950 text-zinc-100 font-sans select-none overflow-hidden">
       
-      {/* Toast notifications */}
+      {/* Toast Notification Container */}
       <ToastNotification toasts={toasts} onDismiss={handleDismissToast} />
 
-      {/* Confirmation modal */}
+      {/* Confirmation Modal */}
       <ConfirmModal
         isOpen={confirmConfig.isOpen}
         title={confirmConfig.title}
         message={confirmConfig.message}
-        onConfirm={() => {
-          confirmConfig.onConfirm();
-          setConfirmConfig((prev) => ({ ...prev, isOpen: false }));
-        }}
+        onConfirm={confirmConfig.onConfirm}
         onCancel={() => setConfirmConfig((prev) => ({ ...prev, isOpen: false }))}
       />
 
-      {/* Top command bar */}
-      <header className="h-16 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-xl px-4 md:px-6 flex items-center justify-between shrink-0 z-20">
+      {/* Header Bar */}
+      <header className="h-16 px-4 md:px-6 bg-zinc-900/90 border-b border-zinc-800/80 backdrop-blur-xl flex items-center justify-between shrink-0 z-20">
         
-        {/* Left: Brand & Mobile Menu */}
+        {/* Left: Mobile hamburger + Title */}
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -309,6 +320,14 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
             {activeTab === 'profile' && (
               <ProfileTab
+                data={draftData}
+                onChange={setDraftData}
+                onShowToast={showToast}
+              />
+            )}
+
+            {activeTab === 'theme' && (
+              <ThemeTab
                 data={draftData}
                 onChange={setDraftData}
                 onShowToast={showToast}

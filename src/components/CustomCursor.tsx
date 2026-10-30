@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion';
 import { useFinePointer, useReducedMotionPref } from '../hooks/useMedia';
+import { usePortfolio } from '../context/PortfolioContext';
 
 const BADGE_CONFIG: Record<string, { icon: string; label: string; size: number }> = {
   view: { icon: '👁', label: 'VIEW', size: 76 },
@@ -11,24 +12,26 @@ const BADGE_CONFIG: Record<string, { icon: string; label: string; size: number }
 };
 
 /**
- * Smart High-Visibility Cinematic Reticle Cursor
- * 
- * Solves lag & visibility issues:
- * 1. Zero-latency precision core: Tracks exact pointer coordinates instantaneously for pinpoint clicking.
- * 2. High-contrast dual-tone glow: White core + black contour + vivid crimson halo visible on pure black, white, and images.
- * 3. Fluid cinematic halo: Spring-dampened viewfinder ring with 4 lens orientation ticks.
- * 4. Context-aware modes: Expands over clickables, displays badge on data-cursor, and cleanly yields on text inputs.
+ * Smart High-Visibility Adaptive Cursor
+ * - Dynamically inherits active theme accent color and glow
+ * - Supports 3 styles configurable in Admin: 'cinematic' | 'minimal' | 'system'
+ * - High-contrast dual-tone glow visible against pure dark and light assets
+ * - Automatically yields on inputs, selects, and text areas
  */
 export default function CustomCursor() {
+  const { data } = usePortfolio();
+  const theme = data.themeSettings;
+  const cursorStyle = theme?.cursorStyle ?? 'cinematic';
+
   const fine = useFinePointer();
   const reduced = useReducedMotionPref();
-  const enabled = fine && !reduced;
+  const enabled = fine && !reduced && cursorStyle !== 'system';
 
   // Zero-latency instantaneous coordinates for precision clicking
   const rawX = useMotionValue(-100);
   const rawY = useMotionValue(-100);
 
-  // Smooth fluid spring coordinates for the trailing atmospheric halo
+  // Smooth fluid spring coordinates for atmospheric trailing halo
   const haloX = useSpring(rawX, { stiffness: 450, damping: 32, mass: 0.45 });
   const haloY = useSpring(rawY, { stiffness: 450, damping: 32, mass: 0.45 });
 
@@ -39,7 +42,10 @@ export default function CustomCursor() {
   const [down, setDown] = useState(false);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      document.documentElement.classList.remove('has-custom-cursor');
+      return;
+    }
     document.documentElement.classList.add('has-custom-cursor');
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -83,6 +89,44 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
+  const accentColor = theme?.primaryColor || '#e5132b';
+  const accentLight = theme?.primaryColorHover || '#ff3d5a';
+
+  // Minimal mode: only renders clean precision dot with smooth micro-halo
+  if (cursorStyle === 'minimal') {
+    return (
+      <motion.div
+        aria-hidden
+        className="pointer-events-none fixed left-0 top-0 z-[1000] will-change-transform"
+        style={{
+          x: rawX,
+          y: rawY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        animate={{
+          opacity: visible && !isInput ? 1 : 0,
+          scale: down ? 0.7 : hoverLink ? 1.5 : 1,
+        }}
+        transition={{ duration: 0.1 }}
+      >
+        <div className="relative flex items-center justify-center">
+          <div
+            className="w-3 h-3 rounded-full blur-[1px] transition-transform duration-150"
+            style={{ backgroundColor: accentColor, opacity: hoverLink ? 0.8 : 0.4 }}
+          />
+          <div
+            className="absolute w-2 h-2 rounded-full bg-white"
+            style={{
+              boxShadow: `0 0 0 1px rgba(0,0,0,0.8), 0 0 8px ${accentLight}`,
+            }}
+          />
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Cinematic mode: full viewfinder halo + precision core
   const badge = mode ? BADGE_CONFIG[mode] : null;
   const isOverBadge = !!badge;
   const haloSize = isOverBadge ? badge.size : hoverLink ? 48 : 32;
@@ -106,35 +150,47 @@ export default function CustomCursor() {
           scale: down ? 0.8 : 1,
           rotate: hoverLink ? 45 : 0,
           backgroundColor: isOverBadge
-            ? 'rgba(229, 9, 20, 0.94)'
+            ? accentColor
             : hoverLink
-              ? 'rgba(229, 9, 20, 0.16)'
-              : 'rgba(229, 9, 20, 0.05)',
+              ? `${accentColor}25`
+              : `${accentColor}0d`,
           borderColor: isOverBadge
             ? 'rgba(255, 255, 255, 0.4)'
             : hoverLink
-              ? 'rgba(229, 9, 20, 0.85)'
-              : 'rgba(229, 9, 20, 0.55)',
+              ? accentLight
+              : `${accentLight}88`,
         }}
         transition={{ type: 'spring', stiffness: 450, damping: 30 }}
       >
-        {/* Outer Viewfinder Ring with High-Visibility Glow */}
+        {/* Outer Viewfinder Ring with Dynamic Glow */}
         <div
-          className="absolute inset-0 rounded-full border border-inherit shadow-[0_0_14px_rgba(229,9,20,0.45)]"
+          className="absolute inset-0 rounded-full border border-inherit"
           style={{
             boxShadow: hoverLink
-              ? '0 0 18px rgba(229,9,20,0.6), inset 0 0 8px rgba(229,9,20,0.2)'
-              : '0 0 10px rgba(229,9,20,0.3)',
+              ? `0 0 16px ${accentColor}88, inset 0 0 8px ${accentColor}44`
+              : `0 0 8px ${accentColor}44`,
           }}
         />
 
         {/* 4 Smart Lens Reticle Notches (Top, Bottom, Left, Right) */}
         {!isOverBadge && (
           <div className="absolute inset-0 pointer-events-none">
-            <span className="absolute top-[-3px] left-1/2 -translate-x-1/2 w-[2px] h-[4px] bg-red-400 rounded-full" />
-            <span className="absolute bottom-[-3px] left-1/2 -translate-x-1/2 w-[2px] h-[4px] bg-red-400 rounded-full" />
-            <span className="absolute left-[-3px] top-1/2 -translate-y-1/2 h-[2px] w-[4px] bg-red-400 rounded-full" />
-            <span className="absolute right-[-3px] top-1/2 -translate-y-1/2 h-[2px] w-[4px] bg-red-400 rounded-full" />
+            <span
+              className="absolute top-[-3px] left-1/2 -translate-x-1/2 w-[2px] h-[4px] rounded-full"
+              style={{ backgroundColor: accentLight }}
+            />
+            <span
+              className="absolute bottom-[-3px] left-1/2 -translate-x-1/2 w-[2px] h-[4px] rounded-full"
+              style={{ backgroundColor: accentLight }}
+            />
+            <span
+              className="absolute left-[-3px] top-1/2 -translate-y-1/2 h-[2px] w-[4px] rounded-full"
+              style={{ backgroundColor: accentLight }}
+            />
+            <span
+              className="absolute right-[-3px] top-1/2 -translate-y-1/2 h-[2px] w-[4px] rounded-full"
+              style={{ backgroundColor: accentLight }}
+            />
           </div>
         )}
 
@@ -170,22 +226,23 @@ export default function CustomCursor() {
         }}
         animate={{
           opacity: visible && !isInput ? 1 : 0,
-          scale: down ? 0.65 : hoverLink ? 1.4 : 1,
+          scale: down ? 0.65 : hoverLink ? 1.35 : 1,
         }}
         transition={{ duration: 0.08 }}
       >
-        {/* Core Dot: Crisp White + Black Contour + Crimson Corona */}
         <div className="relative flex items-center justify-center">
-          {/* Crimson glow backdrop */}
-          <div className="absolute w-4 h-4 rounded-full bg-red-600/60 blur-[2px] animate-pulse" />
-          
+          {/* Dynamic accent glow backdrop */}
+          <div
+            className="absolute w-4 h-4 rounded-full blur-[2px] animate-pulse"
+            style={{ backgroundColor: `${accentColor}99` }}
+          />
+
           {/* Precision Center Marker */}
           <div
-            className={`w-2 h-2 rounded-full bg-white transition-all duration-150 ${
-              hoverLink ? 'bg-red-400 scale-125' : 'bg-white'
-            }`}
+            className="w-2 h-2 rounded-full bg-white transition-all duration-150"
             style={{
-              boxShadow: '0 0 0 1px #000000, 0 0 6px rgba(229,9,20,0.9), 0 0 12px rgba(255,255,255,0.7)',
+              boxShadow: `0 0 0 1px #000000, 0 0 6px ${accentColor}, 0 0 10px rgba(255,255,255,0.7)`,
+              backgroundColor: hoverLink ? accentLight : '#ffffff',
             }}
           />
         </div>

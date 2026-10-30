@@ -67,10 +67,22 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
         my.set((e.clientY / window.innerHeight) * 2 - 1);
       }}
     >
-      {/* atmosphere */}
+      {/* atmosphere with dynamic theme lighting */}
       <motion.div aria-hidden className="absolute inset-0" style={{ x: glowX }}>
-        <div className="absolute right-[-10%] top-[-10%] h-[90vh] w-[80vw] rounded-full bg-[radial-gradient(closest-side,rgba(229,19,43,0.38),rgba(229,19,43,0.08)_55%,transparent)] blur-2xl lg:right-[-4%] lg:w-[60vw]" />
-        <div className="absolute bottom-[-20%] left-[-10%] h-[70vh] w-[60vw] rounded-full bg-[radial-gradient(closest-side,rgba(90,20,120,0.25),transparent)] blur-2xl" />
+        <div
+          className="absolute right-[-10%] top-[-10%] h-[90vh] w-[80vw] rounded-full blur-3xl lg:right-[-4%] lg:w-[60vw] transition-all duration-700 pointer-events-none"
+          style={{
+            background: 'radial-gradient(closest-side, var(--color-crimson), transparent 75%)',
+            opacity: 'calc(var(--theme-glow-alpha, 0.45) * 0.7)',
+          }}
+        />
+        <div
+          className="absolute bottom-[-20%] left-[-10%] h-[70vh] w-[60vw] rounded-full blur-3xl transition-all duration-700 pointer-events-none"
+          style={{
+            background: 'radial-gradient(closest-side, var(--color-crimson-2), transparent 75%)',
+            opacity: 'calc(var(--theme-glow-alpha, 0.45) * 0.35)',
+          }}
+        />
       </motion.div>
       <Particles className="z-[1]" />
       <div aria-hidden className="absolute inset-0 z-[1] overflow-hidden">
@@ -91,8 +103,15 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
           animate={{ clipPath: 'inset(-30% -30% -10% -30%)', opacity: 1 }}
           transition={{ duration: 1.6, ease: EASE, delay: 0.1 }}
         >
-          {/* rim light ring */}
-          <div aria-hidden className="absolute bottom-[8%] left-1/2 h-[78%] w-[78%] -translate-x-1/2 rounded-full border border-crimson-2/20 shadow-[0_0_120px_rgba(229,19,43,0.35),inset_0_0_80px_rgba(229,19,43,0.18)]" />
+          {/* dynamic theme rim light ring */}
+          <div
+            aria-hidden
+            className="absolute bottom-[8%] left-1/2 h-[78%] w-[78%] -translate-x-1/2 rounded-full border border-crimson-2/30 transition-all duration-500"
+            style={{
+              boxShadow: '0 0 120px var(--color-crimson), inset 0 0 80px var(--color-crimson-2)',
+              opacity: 'calc(var(--theme-glow-alpha, 0.45) * 0.85)',
+            }}
+          />
           <img
             src={profile.portrait.src}
             srcSet={profile.portrait.srcSet || undefined}
@@ -100,8 +119,15 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
             alt={profile.portrait.alt}
             className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] [mask-image:linear-gradient(to_bottom,black_62%,transparent_97%)]"
           />
-          {/* crimson rim light on the image edge */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_30%,rgba(255,61,90,0.16),transparent_70%)] mix-blend-screen" />
+          {/* dynamic theme rim light on the image edge */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 mix-blend-screen transition-all duration-500"
+            style={{
+              background: 'radial-gradient(60% 50% at 80% 30%, var(--color-crimson-2), transparent 70%)',
+              opacity: 'calc(var(--theme-glow-alpha, 0.45) * 0.4)',
+            }}
+          />
 
           {/* floating UI chips */}
           {floating.map((f, i) => (
@@ -157,21 +183,25 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
               type="button"
               data-cursor="play"
               onClick={onPlay}
-              className="flex min-h-12 items-center gap-3 rounded-md bg-bone px-6 py-3 text-[15px] font-bold text-ink transition hover:bg-white sm:px-8 cursor-pointer"
+              className="flex min-h-12 items-center gap-3 rounded-md bg-bone px-6 py-3 text-[15px] font-bold text-ink transition hover:bg-white sm:px-8 cursor-pointer shadow-lg active:scale-95"
             >
               <span className="text-lg">▶</span> Play Intro
             </button>
           </Magnetic>
           <Magnetic>
             {profileId === 'recruiter' ? (
-              <button type="button" onClick={onResume} className="glass flex min-h-12 items-center gap-3 rounded-md px-6 py-3 text-[15px] font-semibold text-bone transition hover:bg-white/15 sm:px-8 cursor-pointer">
+              <button
+                type="button"
+                onClick={onResume}
+                className="glass flex min-h-12 items-center gap-3 rounded-md px-6 py-3 text-[15px] font-semibold text-bone transition hover:bg-white/15 sm:px-8 cursor-pointer active:scale-95"
+              >
                 <span className="text-lg">⤓</span> View Resume
               </button>
             ) : (
               <button
                 type="button"
                 onClick={() => scrollTo('#originals')}
-                className="glass flex min-h-12 items-center gap-3 rounded-md px-6 py-3 text-[15px] font-semibold text-bone transition hover:bg-white/15 sm:px-8 cursor-pointer"
+                className="glass flex min-h-12 items-center gap-3 rounded-md px-6 py-3 text-[15px] font-semibold text-bone transition hover:bg-white/15 sm:px-8 cursor-pointer active:scale-95"
               >
                 <span className="text-xl leading-none">＋</span> My Work
               </button>
@@ -181,7 +211,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
             type="button"
             onClick={() => scrollTo('#about')}
             aria-label="More info"
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-lg text-bone transition hover:border-bone hover:bg-white/10 cursor-pointer"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-lg text-bone transition hover:border-bone hover:bg-white/10 cursor-pointer active:scale-95"
           >
             ⓘ
           </button>
