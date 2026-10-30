@@ -11,7 +11,7 @@
       "AI / ML",
       "Java"
     ],
-    "intro": "A B.E Student at BGSCET",
+    "intro": "A B.E Student at BGSCET Bengaluru",
     "location": "Mahalakshmi , Bengaluru",
     "email": "kenchuv1974@gmail.com",
     "links": {
@@ -27,7 +27,7 @@
     "interests": [
       "Machine Learning"
     ],
-    "availabilityStatus": "Open to Opportunities"
+    "availabilityStatus": "EXCITED TO LEARN"
   },
   "education": [
     {
@@ -1065,7 +1065,7 @@
   "siteSettings": {
     "siteTitle": "Harsh — The Series",
     "siteDescription": "Full-Stack Developer • AI / ML • Java. Every project is an Original.",
-    "ogImage": "./assets/og-image.jpg",
+    "ogImage": "",
     "themeColor": "#07070a",
     "copyrightText": "AN H-ORIGINAL // ALL RIGHTS RESERVED",
     "footerQuote": "TO BE CONTINUED…"
@@ -1084,6 +1084,6 @@
     "enableFilmGrain": true,
     "cursorStyle": "cinematic"
   },
-  "lastUpdated": "2026-10-30T18:45:10.192Z",
+  "lastUpdated": "2026-10-30T18:51:16.009Z",
   "version": 5
 }
