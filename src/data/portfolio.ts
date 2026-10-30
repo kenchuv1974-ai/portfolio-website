@@ -28,7 +28,7 @@ export const profile = {
     "AI / ML",
     "Java"
   ],
-  "intro": "A B.E Student at BGSCET",
+  "intro": "A B.E Student at BGSCET Bengaluru",
   "location": "Mahalakshmi , Bengaluru",
   "email": "kenchuv1974@gmail.com",
   "links": {
