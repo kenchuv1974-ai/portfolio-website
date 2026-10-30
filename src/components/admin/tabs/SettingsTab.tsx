@@ -1,9 +1,14 @@
 import { useRef, useState } from 'react';
 import {
+  AlertCircle,
+  CheckCircle2,
   Code2,
   Download,
+  ExternalLink,
   FileCode,
+  Globe,
   KeyRound,
+  RefreshCw,
   RotateCcw,
   Save,
   Settings,
@@ -21,6 +26,13 @@ import {
   hasCustomCredentials,
   resetAdminCredentialsToDefault,
 } from '../../../services/authService';
+import {
+  getStoredGitHubConfig,
+  saveStoredGitHubConfig,
+  testGitHubConnection,
+  syncPortfolioToGitHub,
+  type GitHubSyncConfig,
+} from '../../../services/githubSync';
 import type { PortfolioData, SiteSettings } from '../../../types/portfolio';
 
 interface SettingsTabProps {
@@ -42,6 +54,60 @@ export default function SettingsTab({
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCustomAuth, setIsCustomAuth] = useState(() => hasCustomCredentials());
   const [savingSource, setSavingSource] = useState(false);
+  const [ghConfig, setGhConfig] = useState<GitHubSyncConfig>(() => getStoredGitHubConfig());
+  const [isTestingGh, setIsTestingGh] = useState(false);
+  const [isSyncingGh, setIsSyncingGh] = useState(false);
+  const [ghTestStatus, setGhTestStatus] = useState<{ ok: boolean; message: string } | null>(null);
+  const [syncProgress, setSyncProgress] = useState<string | null>(null);
+
+  const handleTestGitHub = async () => {
+    setIsTestingGh(true);
+    setGhTestStatus(null);
+    try {
+      const res = await testGitHubConnection(ghConfig);
+      setGhTestStatus(res);
+      if (res.ok) {
+        onShowToast('GitHub Connected!', res.message, 'success');
+      } else {
+        onShowToast('Connection Failed', res.message, 'error');
+      }
+    } finally {
+      setIsTestingGh(false);
+    }
+  };
+
+  const handleSyncToGitHub = async () => {
+    if (!ghConfig.token.trim()) {
+      onShowToast('Token Missing', 'Please paste your GitHub Personal Access Token first.', 'error');
+      return;
+    }
+
+    onShowConfirm(
+      'Publish Live Worldwide (GitHub Auto-Sync)?',
+      'This will commit your changes directly to the GitHub repository. All computers, phones, and visitors worldwide will receive the updated content.',
+      async () => {
+        setIsSyncingGh(true);
+        setSyncProgress('Authenticating with GitHub...');
+        try {
+          const res = await syncPortfolioToGitHub(data, ghConfig, (step) => {
+            setSyncProgress(step);
+          });
+          if (res.ok) {
+            onShowToast('Published Worldwide!', res.message, 'success');
+            setSyncProgress(null);
+          } else {
+            onShowToast('Sync Failed', res.message, 'error');
+            setSyncProgress(null);
+          }
+        } catch (err: unknown) {
+          onShowToast('Error', (err as Error).message, 'error');
+          setSyncProgress(null);
+        } finally {
+          setIsSyncingGh(false);
+        }
+      }
+    );
+  };
 
   const updateSetting = (key: keyof SiteSettings, val: string) => {
     onChange((prev) => ({
@@ -237,6 +303,115 @@ export default function SettingsTab({
               className="w-full rounded-xl bg-zinc-950 border border-zinc-700 px-3.5 py-2 text-sm text-zinc-100 focus:outline-none focus:border-red-500 font-['Bebas_Neue',sans-serif] tracking-wider text-lg"
             />
           </div>
+        </div>
+      </div>
+
+      {/* Worldwide Live Auto-Sync via GitHub (100% FREE) */}
+      <div className="rounded-2xl bg-zinc-900/60 border border-blue-500/30 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Globe className="w-4 h-4 text-blue-400" />
+            <h4 className="text-xs font-mono uppercase text-zinc-200">
+              Worldwide Live Auto-Sync (GitHub API — 100% Free Forever)
+            </h4>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-950/80 border border-blue-500/40 text-blue-300">
+            Syncs to All Devices
+          </span>
+        </div>
+
+        <p className="text-xs text-zinc-400 leading-relaxed">
+          When you update names, photos, or projects, sync directly to your GitHub repository. Once synced, <strong className="text-zinc-200">every visitor on any computer, phone, or browser worldwide sees your new updates</strong> automatically!
+        </p>
+
+        <div className="space-y-3 pt-1">
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[11px] font-mono uppercase text-zinc-400">
+                GitHub Personal Access Token (PAT)
+              </label>
+              <a
+                href="https://github.com/settings/tokens/new?scopes=repo&description=Portfolio+Admin+Sync"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-blue-400 hover:text-blue-300 flex items-center gap-1 transition underline"
+              >
+                <span>Generate Token in 30 Seconds</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="password"
+                value={ghConfig.token}
+                onChange={(e) => {
+                  const updated = { ...ghConfig, token: e.target.value };
+                  setGhConfig(updated);
+                  saveStoredGitHubConfig(updated);
+                }}
+                placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                className="flex-1 rounded-xl bg-zinc-950 border border-zinc-700 px-3 py-2 text-xs text-zinc-100 font-mono focus:outline-none focus:border-blue-500"
+              />
+              <button
+                type="button"
+                onClick={handleTestGitHub}
+                disabled={isTestingGh || !ghConfig.token.trim()}
+                className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-1.5 transition disabled:opacity-50 cursor-pointer"
+              >
+                {isTestingGh && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
+                <span>{isTestingGh ? 'Testing...' : 'Test Connection'}</span>
+              </button>
+            </div>
+          </div>
+
+          {ghTestStatus && (
+            <div
+              className={`p-3 rounded-xl border text-xs flex items-center gap-2 ${
+                ghTestStatus.ok
+                  ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300'
+                  : 'bg-red-950/30 border-red-500/30 text-red-300'
+              }`}
+            >
+              {ghTestStatus.ok ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+              )}
+              <span>{ghTestStatus.message}</span>
+            </div>
+          )}
+
+          {syncProgress && (
+            <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-500/40 text-xs text-blue-200 flex items-center gap-2.5">
+              <RefreshCw className="w-4 h-4 text-blue-400 animate-spin shrink-0" />
+              <span>{syncProgress}</span>
+            </div>
+          )}
+
+          <div className="pt-2 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={handleSyncToGitHub}
+              disabled={isSyncingGh || !ghConfig.token.trim()}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold flex items-center gap-2 transition cursor-pointer disabled:opacity-50 shadow-lg shadow-blue-950/50"
+            >
+              <Globe className="w-4 h-4" />
+              <span>{isSyncingGh ? 'Publishing Worldwide...' : '🚀 Publish & Sync to Worldwide Live Site'}</span>
+            </button>
+          </div>
+
+          <details className="text-xs text-zinc-400 pt-1">
+            <summary className="cursor-pointer text-zinc-300 hover:text-white font-mono text-[11px]">
+              ▶ How to create your free token in 30 seconds (100% Free Forever)
+            </summary>
+            <div className="mt-2.5 p-3 rounded-xl bg-zinc-950/60 border border-zinc-800 space-y-1.5 text-zinc-400">
+              <p>1. Click the <strong>Generate Token</strong> link above (opens GitHub in a new tab).</p>
+              <p>2. Give it a note (e.g. <em>Portfolio Admin</em>) and check the <strong>repo</strong> box.</p>
+              <p>3. Scroll to the bottom and click green <strong>Generate token</strong>.</p>
+              <p>4. Copy the token starting with <code className="text-zinc-200">ghp_...</code> and paste it here.</p>
+              <p className="text-[11px] text-zinc-500 italic">Token is saved securely in your browser's private local storage only.</p>
+            </div>
+          </details>
         </div>
       </div>
 

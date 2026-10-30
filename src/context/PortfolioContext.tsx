@@ -9,6 +9,7 @@ import {
   syncFromIndexedDB,
 } from '../services/storageService';
 import { syncToSupabase } from '../services/supabaseClient';
+import { fetchRemotePortfolioData } from '../services/githubSync';
 import type { PortfolioData } from '../types/portfolio';
 
 interface PortfolioContextType {
@@ -53,6 +54,18 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
         setPublishedData(synced.published);
         setDraftData(synced.draft);
         setHasUnsaved(hasUnpublishedChanges());
+      }
+    });
+
+    // Check for newly published data across devices from the repository
+    fetchRemotePortfolioData().then((remoteData) => {
+      if (remoteData && remoteData.profile) {
+        setPublishedData((prev) => {
+          if (!prev.lastUpdated || (remoteData.lastUpdated && remoteData.lastUpdated > prev.lastUpdated)) {
+            return remoteData;
+          }
+          return prev;
+        });
       }
     });
   }, []);

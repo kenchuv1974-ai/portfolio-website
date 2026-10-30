@@ -4,6 +4,7 @@ import {
   Download,
   FileCode,
   FolderGit2,
+  Globe,
   GraduationCap,
   Layers,
   Palette,
@@ -194,6 +195,15 @@ export default function OverviewTab({
           Data Management & Backup
         </h3>
         <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => onNavigateTab('settings')}
+            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-2 transition cursor-pointer shadow-md shadow-blue-950/40"
+            title="Deploy changes live to all computers via GitHub API"
+          >
+            <Globe className="w-3.5 h-3.5" />
+            <span>Deploy Worldwide (GitHub Sync)</span>
+          </button>
+
           <button
             onClick={onExport}
             className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-2 transition cursor-pointer"

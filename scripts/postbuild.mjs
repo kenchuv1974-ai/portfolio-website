@@ -15,4 +15,9 @@ if (fs.existsSync('dist/assets')) {
 // 3. Mirror dist into docs/ so GitHub Pages /docs folder option works instantly
 fs.cpSync('dist', 'docs', { recursive: true });
 
-console.log('✓ Postbuild artifacts mirrored to /assets, /docs, and 404.html');
+// 4. Mirror dist/data into root data/ so root-based paths resolve
+if (fs.existsSync('dist/data')) {
+  fs.cpSync('dist/data', 'data', { recursive: true });
+}
+
+console.log('✓ Postbuild artifacts mirrored to /assets, /docs, /data, and 404.html');
